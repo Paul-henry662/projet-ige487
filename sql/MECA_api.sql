@@ -2,7 +2,7 @@
 -- =========================================================================== A
 Activité : MCEBD.SQL.A
 Trimestre : 2021-3
-Composant : MECA_DELETE.sql
+Composant : MECA_api.sql
 Encodage : UTF-8, sans BOM; fin de ligne Unix (LF)
 Plateforme : PostgreSQL 9.4 à 14
 Responsables : Luc.Lavoie@USherbrooke.ca; Christina.Khnaisser@USherbrooke.ca; lorince.tawamba@ucac-icam.com
@@ -17,19 +17,17 @@ Statut : solution préliminaire
 -- =========================================================================== B
 */
 
-DELETE FROM Effectif;
-DELETE FROM Permis;
-DELETE FROM Type_activite;
-DELETE FROM Unite;
-DELETE FROM Prevision;
-DELETE FROM Permis_activite;
-DELETE FROM SOrg;
+-- 
 
 /*
 -- =========================================================================== Z
 Contributeurs :
-  (PN) paul-henry.ngankam@2025.cac-icam.com,
-  (YS) yves.syapze@2025.ucac-icam.com
+  (CK) Christina.Khnaisser@USherbrooke.ca,
+  (LL) Luc.Lavoie@USherbrooke.ca,
+  (PN) paul-henry.ngankam@2025.ucac-icam.com,
+  (ST) sonia.toukam@2025.ucac-icam.com,
+  (GT) gregori.tema@2025.ucac-icam.com,
+  (MJ) marlene.jodom@2025.ucac-icam.com
 
 Adresse, droits d’auteur et copyright :
   Groupe Groupe Μῆτις (Métis)
@@ -45,8 +43,7 @@ Tâches projetées :
 S.O.
 
 Tâches réalisées :
-2021-11-21 (PN) : Revue.
-2021-11-20 (YS) : Création initiale.
+2021-11-04 (PN) : Création initiale.
 
 Références :
 [ddv] http://info.usherbrooke.ca/llavoie/enseignement/Exemples/MECA/
@@ -61,7 +58,6 @@ Références :
       BD190-STD-SQL-01_NDC.pdf
 
 -- -----------------------------------------------------------------------------
--- fin de MECA_DELETE.sql
+-- fin de MECA_api.sql
 -- =========================================================================== Z
 */
-

@@ -2,7 +2,7 @@
 -- =========================================================================== A
 Activité : MCEBD.SQL.A
 Trimestre : 2021-3
-Composant : MECA_cre.sql
+Composant : MECA_priv.sql
 Encodage : UTF-8, sans BOM; fin de ligne Unix (LF)
 Plateforme : PostgreSQL 9.4 à 14
 Responsables : Luc.Lavoie@USherbrooke.ca; Christina.Khnaisser@USherbrooke.ca; lorince.tawamba@ucac-icam.com
@@ -19,19 +19,6 @@ Statut : solution préliminaire
 
 --
 -- =================== Unité organisationnelle
---
-create domain Unite_Code
-  VARCHAR(8)
-  constraint unite_code_dom check (value similar to '[A-Z]{5}[0-9]{3}');
-comment on domain Unite_code is $$
-Code unique d’une unité organisationnelle.
-$$;
---
-create domain Unite_Nom
-  VARCHAR(240);
-comment on domain Unite_Nom is $$
-Nom d’une unité organisationnelle.
-$$;
 --
 create table Unite
 (
@@ -62,13 +49,6 @@ $$;
 --
 -- =================== Effectif clinique autonome
 --
-create domain Eff_ID
-  INTEGER
-  constraint eff_id_dom check (value > 0);
-comment on domain Unite_nom is $$
-Identifiant artificiel d’un effectif médical
-$$;
---
 create table Effectif
 (
   eff_id INTEGER not null generated always as identity (minvalue 1),
@@ -82,19 +62,6 @@ Un effectif est identifié par "id" et nommé par "nom" et "prenom" est né le "
 $$;
 --
 -- =================== Type d’activité
---
-create domain Type_activite_Code
-  VARCHAR(7)
-  constraint type_activite_code_dom check (value similar to '[a-zA-Z][a-zA-Z0-9]{2,7}');
-comment on domain Type_activite_Code is $$
-Code unique d’un type d’activité.
-$$;
---
-create domain Type_activite_Nom
-  VARCHAR(40);
-comment on domain Type_activite_Nom is $$
-Nom de référence d’un type d’activité.
-$$;
 --
 create table Type_activite
 (
@@ -110,20 +77,6 @@ Un type d’activités.
 $$;
 --
 -- =================== Permis
---
-create domain Permis_ID
-  INTEGER
-  constraint permis_id_dom check(value > 0);
-comment on domain Permis_ID is $$
-Identifiant artificiel unique d’un permis d’exercice.
-$$;
---
-create domain Permis_CODE
-  VARCHAR(7)
-  constraint permis_code_dom check (value similar to '[a-zA-Z]{4}[0-9]{3}');
-comment on domain Permis_CODE is $$
-Code unique d’un permis d’exercice.
-$$;
 --
 create table Permis
 (
@@ -155,21 +108,6 @@ $$;
 --
 -- =================== Prévision d’activité
 --
-create domain Prevision_ID
-  INTEGER
-  constraint Prevision_ID_dom check (value > 0);
-comment on domain Prevision_ID is $$
-Identifiant unique artificiel d’une prévision.
-$$;
---
-create domain Prevision_quantite
-  NUMERIC(12,2)
-  constraint Prevision_quantite_dom check (value > 0);
-comment on domain Prevision_quantite is $$
-La quantité de travail d’une prévision est exprimée en heures-personnes
-(qui est plutôt une mesure de l’effort, mais les us et coutumes du réseau sont ainsi).
-$$;
---
 create table Prevision
 (
   prevision_id INTEGER not null generated always as identity (minvalue 1),
@@ -199,7 +137,9 @@ Contributeurs :
   (CK) Christina.Khnaisser@USherbrooke.ca,
   (LL) Luc.Lavoie@USherbrooke.ca,
   (PN) paul-henry.ngankam@2025.cac-icam.com,
-  (YS) yves.syapze@2025.ucac-icam.com
+  (ST) sonia.toukam@2025.ucac-icam.com,
+  (GT) gregori.tema@2025.ucac-icam.com,
+  (MJ) marlene.jodom@2025.ucac-icam.com
 
 Adresse, droits d’auteur et copyright :
   Groupe Groupe Μῆτις (Métis)
@@ -212,12 +152,10 @@ Adresse, droits d’auteur et copyright :
   [CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0)]
 
 Tâches projetées :
-S.O.
+2021-11-23 (ST) : Revue.
 
 Tâches réalisées :
-2021-11-20 (PN) : Ajouts et corrections.
-2021-11-14 (LL) : Revue.
-2021-11-04 (CK) : Création initiale.
+2021-11-22 (PN) : Création initiale.
 
 Références :
 [ddv] http://info.usherbrooke.ca/llavoie/enseignement/Exemples/MECA/
@@ -232,6 +170,6 @@ Références :
       BD190-STD-SQL-01_NDC.pdf
 
 -- -----------------------------------------------------------------------------
--- fin de MECA_DELETE.sql
+-- fin de MECA_priv.sql
 -- =========================================================================== Z
 */

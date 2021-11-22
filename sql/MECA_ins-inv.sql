@@ -2,7 +2,7 @@
 -- =========================================================================== A
 Activité : MCEBD.SQL.A
 Trimestre : 2021-3
-Composant : MECA_ess-inv.sql
+Composant : MECA_ins-inv.sql
 Encodage : UTF-8, sans BOM; fin de ligne Unix (LF)
 Plateforme : PostgreSQL 9.4 à 14
 Responsables : Luc.Lavoie@USherbrooke.ca; Christina.Khnaisser@USherbrooke.ca; lorince.tawamba@ucac-icam.com
@@ -105,7 +105,9 @@ VALUES('2021-11-20', 101, 'UNITE202', 'TAA4', 3.2, '2024-11-20', '2023-12-20');
 -- =========================================================================== Z
 Contributeurs :
   (PN) paul-henry.ngankam@2025.cac-icam.com,
-  (YS) yves.syapze@2025.ucac-icam.com
+  (ST) sonia.toukam@2025.ucac-icam.com,
+  (GT) gregori.tema@2025.ucac-icam.com,
+  (MJ) marlene.jodom@2025.ucac-icam.com
 
 Adresse, droits d’auteur et copyright :
   Groupe Groupe Μῆτις (Métis)
@@ -118,10 +120,10 @@ Adresse, droits d’auteur et copyright :
   [CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0)]
 
 Tâches projetées :
-S.O.
+2021-11-20 (MJ) : Revue.
 
 Tâches réalisées :
-2021-11-04 (PN) : Création initiale.
+2021-11-20 (PN) : Création initiale.
 
 Références :
 [ddv] http://info.usherbrooke.ca/llavoie/enseignement/Exemples/MECA/
@@ -136,6 +138,6 @@ Références :
       BD190-STD-SQL-01_NDC.pdf
 
 -- -----------------------------------------------------------------------------
--- fin de MECA_ess-inv.sql
+-- fin de MECA_ins-inv.sql
 -- =========================================================================== Z
 */

@@ -2,7 +2,7 @@
 -- =========================================================================== A
 Activité : MCEBD.SQL.A
 Trimestre : 2021-3
-Composant : MECA_drop.sql
+Composant : MECA_del.sql
 Encodage : UTF-8, sans BOM; fin de ligne Unix (LF)
 Plateforme : PostgreSQL 9.4 à 14
 Responsables : Luc.Lavoie@USherbrooke.ca; Christina.Khnaisser@USherbrooke.ca; lorince.tawamba@ucac-icam.com
@@ -16,23 +16,13 @@ Statut : solution préliminaire
    Modélisation des effectifs cliniques autonomes.
 -- =========================================================================== B
 */
-DROP TABLE Effectif CASCADE;
-DROP TABLE Permis CASCADE;
-DROP TABLE Type_activite CASCADE;
-DROP TABLE Unite CASCADE;
-DROP TABLE Prevision CASCADE;
-DROP TABLE Permis_activite CASCADE;
-DROP TABLE SOrg CASCADE;
-
-DROP DOMAIN Unite_Code;
-DROP DOMAIN Unite_Nom;
-DROP DOMAIN Eff_ID;
-DROP DOMAIN Type_activite_Code;
-DROP DOMAIN Type_activite_Nom;
-DROP DOMAIN Permis_ID;
-DROP DOMAIN Permis_CODE;
-DROP DOMAIN Prevision_ID;
-DROP DOMAIN Prevision_quantite;
+DELETE FROM Effectif;
+DELETE FROM Permis;
+DELETE FROM Type_activite;
+DELETE FROM Unite;
+DELETE FROM Prevision;
+DELETE FROM Permis_activite;
+DELETE FROM SOrg;
 /*
 -- =========================================================================== Z
 Contributeurs :
@@ -55,8 +45,7 @@ Tâches projetées :
 S.O.
 
 Tâches réalisées :
-2021-11-14 (PN) : Revue.
-2021-11-04 (YS) : Création initiale.
+2021-11-20 (PN) : Création initiale.
 
 Références :
 [ddv] http://info.usherbrooke.ca/llavoie/enseignement/Exemples/MECA/
@@ -71,6 +60,7 @@ Références :
       BD190-STD-SQL-01_NDC.pdf
 
 -- -----------------------------------------------------------------------------
--- fin de MECA_drop.sql
+-- fin de MECA_del.sql
 -- =========================================================================== Z
 */
+
