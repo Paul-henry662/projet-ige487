@@ -90,7 +90,7 @@ LANGUAGE SQL AS $$
 $$;
 
 -- Insérer une SOrg
-CREATE OR REPLACE PROCEDURE Unite_ins
+CREATE OR REPLACE PROCEDURE SOrg_ins
   (
     _unite Unite_Code,
     _super_unite Unite_Code
@@ -191,7 +191,7 @@ $$;
 --
 -- Type_activite
 --
---Evaluer les types d'activité
+--Evaluer les types d'activités
 CREATE OR REPLACE VIEW Type_activite_V AS
   SELECT type, nom, description, actif
   FROM Type_activite;
@@ -280,7 +280,8 @@ $$;
 
 --
 -- Permis_activite
---Evaluer les associations Permis_activite
+--
+-- Evaluer les associations Permis_activite
 CREATE OR REPLACE VIEW Permis_activite_V AS
   SELECT permis, type_activite
   FROM Permis_activite;
@@ -331,7 +332,23 @@ $$;
 --
 -- Prevision
 --
--- Evaluer les prévisions
+-- Renvoie un prévision_id à partir du code
+CREATE OR REPLACE FUNCTION Prevision
+  (
+    _prevision_code Prevision_Code
+  )
+RETURNS Prevision_ID AS $$
+DECLARE id Prevision_ID;
+BEGIN
+  SELECT prevision_id INTO id
+  FROM prevision
+  WHERE prevision_code = _prevision_code;
+
+  RETURN id;
+END;
+$$;
+
+--Evaluer les prévisions
 CREATE OR REPLACE VIEW Prevision_V AS
   SELECT 
     prevision_id , 
@@ -347,13 +364,13 @@ CREATE OR REPLACE VIEW Prevision_V AS
 -- Modifier l'effectif d'une prévision
 CREATE OR REPLACE PROCEDURE Prevision_mod_eff
   (
-    _prevision_id Prevision_ID,
+    _prevision_code Prevision_Code,
     _effectif Eff_Matr
   )
 LANGUAGE SQL AS $$
   UPDATE Prevision
   SET effectif = Effectif(_effectif)
-  WHERE prevision_id = _prevision_id
+  WHERE prevision_code = _prevision_code
 $$;
 
 -- Insérer une prévision
@@ -361,7 +378,7 @@ CREATE OR REPLACE PROCEDURE Prevision_ins
   (
     _prevision_code Prevision_Code,
     _prevision_date DATE,
-    _effectif Eff_ID,
+    _effectif Eff_Matr,
     _unite Unite_Code,
     _type_activite Type_activite_Code,
     _quantite Prevision_quantite,
@@ -370,17 +387,17 @@ CREATE OR REPLACE PROCEDURE Prevision_ins
   )
 LANGUAGE SQL AS $$
   INSERT INTO Prevision(prevision_code, prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
-  VALUES(_prevision_code, _prevision_date, _effectif, _unite, _type_activite, _quantite, _periode_debut, _periode_fin)
+  VALUES(_prevision_code, _prevision_date, Effectif(_effectif), _unite, _type_activite, _quantite, _periode_debut, _periode_fin)
 $$;
 
 -- Retirer une prévision
 CREATE OR REPLACE PROCEDURE Prevision_ret
   (
-    _prevision_id Prevision_ID
+    _prevision_code Prevision_Code
   )
 LANGUAGE SQL AS $$
   DELETE FROM Prevision
-  WHERE prevision_id = _prevision_id
+  WHERE prevision_id = Prevision(_prevision_code)
 $$;
 
 
