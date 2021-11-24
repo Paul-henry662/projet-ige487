@@ -44,6 +44,16 @@ INSERT INTO SOrg(unite, super_unite)
 VALUES('UNITE002', 'UNITE001');
 
 \echo ========================================================================
+\echo Insertions dans Effectif
+\echo ========================================================================
+-- Le matricule doit respecter '[0-9]{8}'
+INSERT INTO Effectif(eff_matr, nom, prenom, dateNaissance)
+VALUES('eff006', 'Dupont', 'Pierre', '2000-01-01');
+-- Le matricule existe déjà
+INSERT INTO Effectif(eff_matr, nom, prenom, dateNaissance)
+VALUES('00000004', 'Dupont', 'Pierre', '2000-01-01');
+
+\echo ========================================================================
 \echo Insertions dans Type_activite
 \echo ========================================================================
 -- type doit respecter '[a-zA-Z][a-zA-Z0-9]{2,7}'
@@ -61,13 +71,13 @@ VALUES('TAB2', 'typeActiviteA2', 'description du type d activite B2', FALSE);
 \echo ========================================================================
 -- permis_code doit respecter '[a-zA-Z]{4}[0-9]{3}'
 INSERT INTO Permis(permis_code, effectif, valide_debut, valide_fin)
-VALUES('Perm001xx', 1, '2021-11-20', '2022-11-20');
+VALUES('Perm001xx', Effectif('00000001'), '2021-11-20', '2022-11-20');
 -- effectif n'existe pas
 INSERT INTO Permis(permis_code, effectif, valide_debut, valide_fin)
 VALUES('Perm003', 100, '2021-11-20', '2022-11-20');
 -- valideDebut >= valideFin
 INSERT INTO Permis(permis_code, effectif, valide_debut, valide_fin)
-VALUES('Perm004', 2, '2022-11-20', '2021-11-20');
+VALUES('Perm004', Effectif('00000002'), '2022-11-20', '2021-11-20');
 
 \echo ========================================================================
 \echo Insertions dans Permis_activite
@@ -77,29 +87,32 @@ INSERT INTO Permis_activite(permis, type_activite)
 VALUES(101, 'TAA1');
 -- type_activite n'existe pas
 INSERT INTO Permis_activite(permis, type_activite)
-VALUES(1, 'TAY5');
+VALUES(Permis('Perm001'), 'TAY5');
 -- L'association (permis, type_activite) existe déjà
 INSERT INTO Permis_activite(permis, type_activite)
-VALUES(1, 'TAA1');
+VALUES(Permis('Perm001'), 'TAA1');
 
 \echo ========================================================================
 \echo Insertions dans Prevision
 \echo ========================================================================
+-- prevision_code doit respecter 'Prev[0-9]{4}'
+INSERT INTO Prevision(prevision_code, prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
+VALUES('Prev0008xx','2021-11-20', Effectif('00000001'), 'UNITE001', 'TAA1', 0, '2021-11-20', '2021-12-20');
 -- quantite doit être > 0
-INSERT INTO Prevision(prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
-VALUES('2021-11-20', 1, 'UNITE001', 'TAA1', 0, '2021-11-20', '2021-12-20');
+INSERT INTO Prevision(prevision_code, prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
+VALUES('Prev0008','2021-11-20', Effectif('00000001'), 'UNITE001', 'TAA1', 0, '2021-11-20', '2021-12-20');
 -- effectif n'existe pas
-INSERT INTO Prevision(prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
-VALUES('2021-11-20', 101, 'UNITE002', 'TAA2', 3.2, '2022-11-20', '2023-12-20');
+INSERT INTO Prevision(prevision_code, prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
+VALUES('Prev0009','2021-11-20', 101, 'UNITE002', 'TAA2', 3.2, '2022-11-20', '2023-12-20');
 -- unite n'existe pas
-INSERT INTO Prevision(prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
-VALUES('2021-11-20', 2, 'UNITE202', 'TAA3', 8.3, '2021-11-20', '2022-03-20');
+INSERT INTO Prevision(prevision_code, prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
+VALUES('Prev0010','2021-11-20', Effectif('00000002'), 'UNITE202', 'TAA3', 8.3, '2021-11-20', '2022-03-20');
 -- type_activite n'existe pas
-INSERT INTO Prevision(prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
-VALUES('2021-11-20', 1, 'UNITE003', 'TAB1', 10.03, '2026-11-20', '2026-12-20');
+INSERT INTO Prevision(prevision_code, prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
+VALUES('Prev0011','2021-11-20', Effectif('00000001'), 'UNITE003', 'TAB1', 10.03, '2026-11-20', '2026-12-20');
 -- periode_debut >= periode_fin
-INSERT INTO Prevision(prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
-VALUES('2021-11-20', 101, 'UNITE202', 'TAA4', 3.2, '2024-11-20', '2023-12-20');
+INSERT INTO Prevision(prevision_code, prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
+VALUES('Prev0012','2021-11-20', 101, 'UNITE202', 'TAA4', 3.2, '2024-11-20', '2023-12-20');
 
 /*
 -- =========================================================================== Z
