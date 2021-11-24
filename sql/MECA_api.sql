@@ -115,165 +115,223 @@ $$;
 --
 -- Effectif
 --
-Evaluer les UO
+-- Renvoie un eff_id à partir du matricule
+CREATE OR REPLACE FUNCTION Effectif
+  (
+    _eff_matr Eff_Matr
+  )
+RETURNS Eff_ID AS $$
+DECLARE _eff_id Eff_ID;
+BEGIN
+  SELECT eff_id INTO _eff_id
+  FROM Effectif
+  WHERE eff_matr = _eff_matr;
+
+  RETURN _eff_id;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Evaluer les effectifs
 CREATE OR REPLACE VIEW Effectif_V AS
   SELECT eff_id, nom , prenom , datenaissance
-  FROM Efectif;
+  FROM Effectif;
 
--- Modifier le nom d'une UO
+-- Modifier le nom et le prénom d'un effectif
 CREATE OR REPLACE PROCEDURE Effectif_mod_nom
   (
-    _ eff_id,
-    _nom_effectif,
-  
+    _eff_matr Eff_Matr,
+    _nom TEXT,
+    _prenom TEXT
   )
 LANGUAGE SQL AS $$
   UPDATE Effectif
-  SET nom = _nom
-  WHERE eff_id = _id
+  SET
+    nom = _nom,
+    prenom = _prenom
+  WHERE
+    eff_id = Effectif(_eff_matr)
 $$;
 
--- Insérer une UO
-CREATE OR REPLACE PROCEDURE Effectif_ins
+-- Modifier la date de naissance d'un effectif
+CREATE OR REPLACE PROCEDURE Effectif_mod_date_naiss
   (
-    _id_eff_id,
-    _Nom
+    _eff_matr Eff_Matr,
+    _dateNaissance DATE
   )
 LANGUAGE SQL AS $$
-  INSERT INTO Effectif(eff_id,nom)
-  VALUES(_id, _nom)
+  UPDATE Effectif
+  SET
+    dateNaissance = _dateNaissance
+  WHERE eff_id = Effectif(_eff_matr)
 $$;
 
--- Retirer une UO
+-- Insérer un effectif
+CREATE OR REPLACE PROCEDURE Effectif_ins
+  (
+    _eff_matr Eff_Matr,
+    _nom TEXT,
+    _prenom TEXT,
+    _datenaissance DATE
+  )
+LANGUAGE SQL AS $$
+  INSERT INTO Effectif(eff_matr, nom, prenom, datenaissance)
+  VALUES(_eff_matr, _nom, _prenom, _datenaissance)
+$$;
+
+-- Retirer un effectif
 CREATE OR REPLACE PROCEDURE Effectif_ret
   (
-    _id_eff_id
+    _eff_matr Eff_Matr
   )
 LANGUAGE SQL AS $$
   DELETE FROM Effectif
-  WHERE Eff_id = _id
+  WHERE Eff_id = Effectif(_eff_matr)
 $$;
-
-
-
 
 --
 -- Type_activite
 --
---Evaluer les UO
+--Evaluer les types d'activité
 CREATE OR REPLACE VIEW Type_activite_V AS
-  SELECT  _type , nom 
+  SELECT type, nom, description, actif
   FROM Type_activite;
 
--- Modifier le nom d'une UO
+-- Modifier le nom d'un type d'activité
 CREATE OR REPLACE PROCEDURE Type_activite_mod_nom
   (
-    _type,
-    _nom
+    _type Type_activite_Code,
+    _nom Type_activite_Nom
   )
 LANGUAGE SQL AS $$
   UPDATE Type_activite
   SET nom = _nom
-  WHERE _type = _code
+  WHERE type = _type
 $$;
 
--- Insérer une UO
+-- Insérer un type d'activité
 CREATE OR REPLACE PROCEDURE Type_activite_ins
   (
-    _type,
-    _nom 
+    _type Type_activite_Code,
+    _nom Type_activite_Nom,
+    _description TEXT,
+    _actif BOOLEAN
   )
 LANGUAGE SQL AS $$
-  INSERT INTO Type_activite(_type, _nom)
-  VALUES(_type, _nom)
+  INSERT INTO Type_activite(type, nom, description, actif)
+  VALUES(_type, _nom, _description, _actif)
 $$;
 
--- Retirer une UO
+-- Retirer un type d'ativité
 CREATE OR REPLACE PROCEDURE Type_activite_ret
   (
-    _type
+    _type Type_activite_Code
   )
 LANGUAGE SQL AS $$
   DELETE FROM Type_activite
-  WHERE _type = _type
+  WHERE type = _type
 $$;
-
 
 --
 -- Permis
---Evaluer les UO
-CREATE OR REPLACE VIEW Permis_V 
+--
+-- Renvoie un permis_id à partir du code
+CREATE OR REPLACE FUNCTION Permis
+  (
+    _permis_code Permis_Code
+  )
+RETURNS Permis_ID AS $$
+DECLARE id Permis_ID;
+BEGIN
+  SELECT permis_ID INTO id
+  FROM Permis
+  WHERE permis_code = _permis_code;
+
+  RETURN id;
+END;
+$$ LANGUAGE plpgsql;
+
+--Evaluer les permis
+CREATE OR REPLACE VIEW Permis_V AS
   SELECT permis_id, permis_code , effectif , valide_debut , valide_fin
   FROM Permis;
 
--- Insérer une UO
+-- Insérer un permis
 CREATE OR REPLACE PROCEDURE Permis_ins
   (
-    permis_id,
-    _code permis_code
+    _permis_code Permis_Code,
+    _eff_matr Eff_Matr,
+    _valide_debut DATE,
+    _valide_fin DATE
   )
 LANGUAGE SQL AS $$
-  INSERT INTO Permis(permis_id, permis_code)
-  VALUES(_id, _code)
+  INSERT INTO Permis(permis_code, effectif, valide_debut, valide_fin)
+  VALUES(_permis_code, Effectif(_eff_matr), _valide_debut, _valide_fin)
 $$;
 
--- Retirer une UO
+-- Retirer un Permis
 CREATE OR REPLACE PROCEDURE Permis_ret
   (
-    permis_id
+    _permis_code Permis_Code
   )
 LANGUAGE SQL AS $$
   DELETE FROM Permis
-  WHERE permis_id = id
+  WHERE permis_id = Permis(_permis_code)
 $$;
-
-
 
 --
 -- Permis_activite
---Evaluer les UO
+--Evaluer les associations Permis_activite
 CREATE OR REPLACE VIEW Permis_activite_V AS
   SELECT permis, type_activite
   FROM Permis_activite;
 
--- Modifier le nom d'une UO
-CREATE OR REPLACE PROCEDURE Permis_activite_mod_nom
+-- Modifier une association Permis_activite
+CREATE OR REPLACE PROCEDURE Permis_activite_mod
   (
-    _permis,
-    _type_activite
+    _permis_old Permis_Code,
+    _type_activite_old Type_activite_code,
+    _permis_new Permis_Code,
+    _type_activite_new Type_activite_code
   )
 LANGUAGE SQL AS $$
   UPDATE Permis_activite
-  SET permis
-  WHERE type_activite
+  SET
+    permis = Permis(_permis_new),
+    type_activite = _type_activite_new
+  WHERE
+    permis = Permis(_permis_old)
+    AND type_activite = _type_activite_old
 $$;
 
--- Insérer une UO
+-- Insérer une association Permis_activite
 CREATE OR REPLACE PROCEDURE Permis_activite_ins
   (
-    _permis,
-    _type_activite_code
+    _permis Permis_Code,
+    _type_activite Type_activite_code
   )
 LANGUAGE SQL AS $$
   INSERT INTO Permis_activite(permis, type_activite)
-  VALUES(_permis, _type_activite_code)
+  VALUES(Permis(_permis), _type_activite)
 $$;
 
--- Retirer une UO
+-- Retirer une association Permis_activite
 CREATE OR REPLACE PROCEDURE Permis_activite_ret
   (
-    type_activite
+    _permis Permis_Code,
+    _type_activite Type_activite_code
   )
 LANGUAGE SQL AS $$
   DELETE FROM Permis_activite
-  WHERE type_activite = type_activite_code
+  WHERE
+    permis = Permis(_permis)
+    AND type_activite = _type_activite
 $$;
-
 
 
 --
 -- Prevision
---Evaluer les UO
+--
+-- Evaluer les prévisions
 CREATE OR REPLACE VIEW Prevision_V AS
   SELECT 
     prevision_id , 
@@ -286,37 +344,43 @@ CREATE OR REPLACE VIEW Prevision_V AS
     periode_fin
   FROM Prevision;
 
--- Modifier le nom d'une UO
-CREATE OR REPLACE PROCEDURE Prevision_mod_nom
+-- Modifier l'effectif d'une prévision
+CREATE OR REPLACE PROCEDURE Prevision_mod_eff
   (
-    prevision_id,
-    prevision_date
+    _prevision_id Prevision_ID,
+    _effectif Eff_Matr
   )
 LANGUAGE SQL AS $$
   UPDATE Prevision
-  SET prevision_id
-  WHERE prevision_date = date
+  SET effectif = Effectif(_effectif)
+  WHERE prevision_id = _prevision_id
 $$;
 
--- Insérer une UO
+-- Insérer une prévision
 CREATE OR REPLACE PROCEDURE Prevision_ins
   (
-    prevision_id,
-    prevision_date
+    _prevision_code Prevision_Code,
+    _prevision_date DATE,
+    _effectif Eff_ID,
+    _unite Unite_Code,
+    _type_activite Type_activite_Code,
+    _quantite Prevision_quantite,
+    _periode_debut DATE,
+    _periode_fin DATE
   )
 LANGUAGE SQL AS $$
-  INSERT INTO Prevision(prevision_id, prevision_date)
-  VALUES(_id, _datz)
+  INSERT INTO Prevision(prevision_code, prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
+  VALUES(_prevision_code, _prevision_date, _effectif, _unite, _type_activite, _quantite, _periode_debut, _periode_fin)
 $$;
 
--- Retirer une UO
+-- Retirer une prévision
 CREATE OR REPLACE PROCEDURE Prevision_ret
   (
-  prevision_code
+    _prevision_id Prevision_ID
   )
 LANGUAGE SQL AS $$
   DELETE FROM Prevision
-  WHERE prevision_code = _code
+  WHERE prevision_id = _prevision_id
 $$;
 
 

@@ -13,7 +13,7 @@ Statut : solution préliminaire
 
 /*
 -- =========================================================================== B
-   Jeu de données invalides aux fins de test du modèle.
+   Jeu de données valides aux fins de test du modèle.
 -- =========================================================================== B
 */
 -- ========================================================================
@@ -52,23 +52,23 @@ VALUES('UNITE005', 'UNITE004');
 -- ========================================================================
 -- Insertions dans Effectif
 -- ========================================================================
-INSERT INTO Effectif(nom, prenom, dateNaissance)
-VALUES('Ngankam', 'Paul-henry', '2002-06-06');
+INSERT INTO Effectif(eff_matr, nom, prenom, dateNaissance)
+VALUES('00000001','Ngankam', 'Paul-henry', '2002-06-06');
 
-INSERT INTO Effectif(nom, prenom, dateNaissance)
-VALUES('Syapze', 'Yves', '2002-04-21');
+INSERT INTO Effectif(eff_matr, nom, prenom, dateNaissance)
+VALUES('00000002', 'Syapze', 'Yves', '2002-04-21');
 
-INSERT INTO Effectif(nom, prenom, dateNaissance)
-VALUES('Kamga', 'Jean', '1997-03-21');
+INSERT INTO Effectif(eff_matr, nom, prenom, dateNaissance)
+VALUES('00000003', 'Kamga', 'Jean', '1997-03-21');
 
-INSERT INTO Effectif(nom, prenom, dateNaissance)
-VALUES('Kenfack', 'Etienne', '2000-10-02');
+INSERT INTO Effectif(eff_matr, nom, prenom, dateNaissance)
+VALUES('00000004', 'Kenfack', 'Etienne', '2000-10-02');
 
-INSERT INTO Effectif(nom, prenom, dateNaissance)
-VALUES('Ngounou', 'Junior', '1999-04-04');
+INSERT INTO Effectif(eff_matr, nom, prenom, dateNaissance)
+VALUES('00000005', 'Ngounou', 'Junior', '1999-04-04');
 
-INSERT INTO Effectif(nom, prenom, dateNaissance)
-VALUES('Seck', 'Alain', '1986-02-01');
+INSERT INTO Effectif(eff_matr, nom, prenom, dateNaissance)
+VALUES('00000006', 'Seck', 'Alain', '1986-02-01');
 
 -- ========================================================================
 -- Insertions dans Type_activite
@@ -92,61 +92,61 @@ VALUES('TAA5', 'typeActiviteA5', 'description du type d activite A5', FALSE);
 -- Insertions dans Permis
 -- ========================================================================
 INSERT INTO Permis(permis_code, effectif, valide_debut, valide_fin)
-VALUES('Perm001', 1, '2021-11-20', '2022-11-20');
+VALUES('Perm001', Effectif('00000001'), '2021-11-20', '2022-11-20');
 
 INSERT INTO Permis(permis_code, effectif, valide_debut, valide_fin)
-VALUES('Perm002', 2, '2021-12-20', '2022-01-20');
+VALUES('Perm002', Effectif('00000002'), '2021-12-20', '2022-01-20');
 
 INSERT INTO Permis(permis_code, effectif, valide_debut, valide_fin)
-VALUES('Perm003', 3, '2021-11-20', '2022-05-20');
+VALUES('Perm003', Effectif('00000003'), '2021-11-20', '2022-05-20');
 
 INSERT INTO Permis(permis_code, effectif, valide_debut, valide_fin)
-VALUES('Perm004', 4, '2022-10-22', '2025-10-22');
+VALUES('Perm004', Effectif('00000004'), '2022-10-22', '2025-10-22');
 
 INSERT INTO Permis(permis_code, effectif, valide_debut, valide_fin)
-VALUES('Perm005', 5, '2021-12-01', '2023-12-01');
+VALUES('Perm005', Effectif('00000005'), '2021-12-01', '2023-12-01');
 
 -- ========================================================================
 -- Insertions dans Permis_activite
 -- ========================================================================
 INSERT INTO Permis_activite(permis, type_activite)
-VALUES(1,'TAA1');
+VALUES(Permis('Perm001'),'TAA1');
 
 INSERT INTO Permis_activite(permis, type_activite)
-VALUES(2, 'TAA2');
+VALUES(Permis('Perm002'), 'TAA2');
 
 INSERT INTO Permis_activite(permis, type_activite)
-VALUES(3, 'TAA3');
+VALUES(Permis('Perm003'), 'TAA3');
 
 INSERT INTO Permis_activite(permis, type_activite)
-VALUES(4, 'TAA4');
+VALUES(Permis('Perm004'), 'TAA4');
 
 INSERT INTO Permis_activite(permis, type_activite)
-VALUES(5, 'TAA5');
+VALUES(Permis('Perm005'), 'TAA5');
 
 -- ========================================================================
 -- Insertions dans Prevision
 -- ========================================================================
-INSERT INTO Prevision(prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
-VALUES('2021-11-20', 1, 'UNITE001', 'TAA1', 3.6, '2021-11-20', '2022-03-20');
+INSERT INTO Prevision(prevision_code, prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
+VALUES('Prev0001', '2021-11-20', Effectif('00000001'), 'UNITE001', 'TAA1', 3.6, '2021-11-20', '2022-03-20');
 
-INSERT INTO Prevision(prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
-VALUES('2021-11-21', 2, 'UNITE002', 'TAA2', 3.2, '2022-11-20', '2022-12-20');
+INSERT INTO Prevision(prevision_code, prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
+VALUES('Prev0002', '2021-11-21', Effectif('00000002'), 'UNITE002', 'TAA2', 3.2, '2022-11-20', '2022-12-20');
 
-INSERT INTO Prevision(prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
-VALUES('2021-11-22', 3, 'UNITE002', 'TAA3', 0.3, '2021-11-20', '2022-03-20');
+INSERT INTO Prevision(prevision_code, prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
+VALUES('Prev0003', '2021-11-22', Effectif('00000003'), 'UNITE002', 'TAA3', 0.3, '2021-11-20', '2022-03-20');
 
-INSERT INTO Prevision(prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
-VALUES('2021-11-22', 1, 'UNITE003', 'TAA1', 10.03, '2026-11-20', '2026-12-20');
+INSERT INTO Prevision(prevision_code, prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
+VALUES('Prev0004', '2021-11-22', Effectif('00000001'), 'UNITE003', 'TAA1', 10.03, '2026-11-20', '2026-12-20');
 
-INSERT INTO Prevision(prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
-VALUES('2021-11-22', 3, 'UNITE001', 'TAA3', 4.3, '2023-11-20', '2024-12-20');
+INSERT INTO Prevision(prevision_code, prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
+VALUES('Prev0005', '2021-11-22', Effectif('00000003'), 'UNITE001', 'TAA3', 4.3, '2023-11-20', '2024-12-20');
 
-INSERT INTO Prevision(prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
-VALUES('2021-11-22', 4, 'UNITE004', 'TAA1', 1.5, '2023-11-20', '2024-12-20');
+INSERT INTO Prevision(prevision_code, prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
+VALUES('Prev0006', '2021-11-22', Effectif('00000004'), 'UNITE004', 'TAA1', 1.5, '2023-11-20', '2024-12-20');
 
-INSERT INTO Prevision(prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
-VALUES('2021-11-22', 6, 'UNITE005', 'TAA5', 0.8, '2022-11-20', '2023-01-20');
+INSERT INTO Prevision(prevision_code, prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
+VALUES('Prev0007', '2021-11-22', Effectif('00000006'), 'UNITE005', 'TAA5', 0.8, '2022-11-20', '2023-01-20');
 /*
 -- =========================================================================== Z
 Contributeurs :

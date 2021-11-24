@@ -52,13 +52,15 @@ $$;
 create table Effectif
 (
   eff_id INTEGER not null generated always as identity (minvalue 1),
+  eff_matr Eff_Matr not null,
   nom text not null,
   prenom text not null,
   dateNaissance Date not null,
-  constraint effectif_cc0 primary key (eff_id)
+  constraint effectif_cc0 primary key (eff_id),
+  constraint effectif_cc1 unique (eff_matr)
 );
 comment on table Effectif is $$
-Un effectif est identifié par "id" et nommé par "nom" et "prenom" est né le "dateNaissance".
+Un effectif est identifié par "id" et "matr", nommé par "nom" et "prenom" et est né le "dateNaissance".
 $$;
 --
 -- =================== Type d’activité
@@ -111,6 +113,7 @@ $$;
 create table Prevision
 (
   prevision_id INTEGER not null generated always as identity (minvalue 1),
+  prevision_code Prevision_Code,
   prevision_date DATE,
   effectif Eff_ID not null,
   unite Unite_Code not null,
@@ -119,6 +122,7 @@ create table Prevision
   periode_debut DATE not null,
   periode_fin DATE not null,
   constraint prevision_cc0 primary key (prevision_id),
+  constraint prevision_cc1 unique (prevision_code),
   constraint prevision_cr0 foreign key (effectif) references Effectif(eff_id),
   constraint prevision_cr1 foreign key (unite) references Unite(unite_code),
   constraint prevision_cr2 foreign key (type_activite) references Type_activite(type),

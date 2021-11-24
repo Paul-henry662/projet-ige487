@@ -43,6 +43,13 @@ comment on domain Unite_nom is $$
 Identifiant artificiel d’un effectif médical
 $$;
 
+create domain Eff_Matr
+  VARCHAR(8)
+  constraint eff_matr_dom check(value similar to '[0-9]{8}');
+comment on domain Eff_Matr is $$
+Matricule d’un effectif médical
+$$;
+
 --
 -- =================== Type d’activité
 --
@@ -85,6 +92,12 @@ comment on domain Prevision_ID is $$
 Identifiant unique artificiel d’une prévision.
 $$;
 --
+
+create domain Prevision_Code
+  VARCHAR(8)
+  constraint prevision_code_dom check (value similar to 'Prev[0-9]{4}');
+--
+
 create domain Prevision_quantite
   NUMERIC(12,2)
   constraint Prevision_quantite_dom check (value > 0);
