@@ -16,13 +16,13 @@ Statut : solution préliminaire
    Modélisation des effectifs cliniques autonomes.
 -- =========================================================================== B
 */
-DELETE FROM Effectif;
-DELETE FROM Permis;
-DELETE FROM Type_activite;
-DELETE FROM Unite;
 DELETE FROM Prevision;
 DELETE FROM Permis_activite;
+DELETE FROM Permis;
+DELETE FROM Effectif;
+DELETE FROM Type_activite;
 DELETE FROM SOrg;
+DELETE FROM Unite;
 /*
 -- =========================================================================== Z
 Contributeurs :

@@ -135,6 +135,23 @@ Une prévision ne peut être saisie que si l’effectif possède un permis valid
 d’accomplir le type d’activité durant toute la période prévue.
 $$;
 
+CREATE TRIGGER prevision_date
+AFTER INSERT effectif ON prevision for each row
+begin
+CASE
+constraint prevision_periode check(periode_debut < periode_fin)
+ELSE 
+RETURN (INVALID)
+end;
+
+CREATE TRIGGER permis_date
+BEFORE INSERT effectif ON permis for each row
+begin
+constraint permis_dates check(valide_debut < valide_fin)
+end;
+
+
+
 /*
 -- =========================================================================== Z
 Contributeurs :
