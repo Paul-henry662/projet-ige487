@@ -136,6 +136,20 @@ CREATE OR REPLACE VIEW Effectif_V AS
   SELECT eff_id, nom , prenom , datenaissance
   FROM Effectif;
 
+-- Modifier le matricule d'un effectif
+CREATE OR REPLACE PROCEDURE Effectif_mod_nom
+  (
+    _eff_matr_old Eff_Matr,
+    _eff_matr_new Eff_Matr
+  )
+LANGUAGE SQL AS $$
+  UPDATE Effectif
+  SET
+      eff_matr = _eff_matr_new
+  WHERE
+    eff_id = Effectif(_eff_matr_old)
+$$;
+
 -- Modifier le nom et le prénom d'un effectif
 CREATE OR REPLACE PROCEDURE Effectif_mod_nom
   (
