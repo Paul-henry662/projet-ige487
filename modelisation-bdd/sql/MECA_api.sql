@@ -418,7 +418,6 @@ $$;
 
 /*
 -- =========================================================================== Z
-
 Contributeurs :
   (CK) Christina.Khnaisser@USherbrooke.ca,
   (LL) Luc.Lavoie@USherbrooke.ca,
@@ -426,7 +425,6 @@ Contributeurs :
   (ST) sonia.toukam@2025.ucac-icam.com,
   (GT) gregori.tema@2025.ucac-icam.com,
   (MJ) marlene.jodom@2025.ucac-icam.com
-
 Adresse, droits d’auteur et copyright :
   Groupe Groupe Μῆτις (Métis)
   Département d’informatique
@@ -436,13 +434,10 @@ Adresse, droits d’auteur et copyright :
   Canada
   http://info.usherbrooke.ca/llavoie/
   [CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0)]
-
 Tâches projetées :
 2021-11-23 (MJ) : Complétion du composant
-
 Tâches réalisées :
 2021-11-23 (PN) : Création initiale.
-
 Références :
 [ddv] http://info.usherbrooke.ca/llavoie/enseignement/Exemples/MECA/
       MECA_DDV.pdf
@@ -454,7 +449,6 @@ Références :
       MECA_SCL.pdf (à venir)
 [std] http://info.usherbrooke.ca/llavoie/enseignement/Modules/
       BD190-STD-SQL-01_NDC.pdf
-
 -- -----------------------------------------------------------------------------
 -- fin de MECA_api.sql
 -- =========================================================================== Z
