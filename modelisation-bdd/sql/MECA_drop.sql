@@ -24,15 +24,15 @@ DROP TABLE Prevision CASCADE;
 DROP TABLE Permis_activite CASCADE;
 DROP TABLE SOrg CASCADE;
 
-DROP DOMAIN Unite_Code;
-DROP DOMAIN Unite_Nom;
-DROP DOMAIN Eff_ID;
-DROP DOMAIN Type_activite_Code;
-DROP DOMAIN Type_activite_Nom;
-DROP DOMAIN Permis_ID;
-DROP DOMAIN Permis_CODE;
-DROP DOMAIN Prevision_ID;
-DROP DOMAIN Prevision_quantite;
+DROP DOMAIN Unite_Code CASCADE;
+DROP DOMAIN Unite_Nom CASCADE;
+DROP DOMAIN Eff_ID CASCADE;
+DROP DOMAIN Type_activite_Code CASCADE;
+DROP DOMAIN Type_activite_Nom CASCADE;
+DROP DOMAIN Permis_ID CASCADE;
+DROP DOMAIN Permis_CODE CASCADE;
+DROP DOMAIN Prevision_ID CASCADE;
+DROP DOMAIN Prevision_quantite CASCADE;
 /*
 -- =========================================================================== Z
 Contributeurs :
