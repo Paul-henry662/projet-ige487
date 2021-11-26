@@ -41,5 +41,4 @@ public class TupleTypeActivite {
 		this.actif = actif;
 	}
 	
-
 }

@@ -1,28 +1,28 @@
 package meca;
 
 public class TupleUnite {
-private String unitecode;
-private String unitenom;
-
-
-public TupleUnite() {
-}
-
-public TupleUnite(String unitecode, String unitenom) {
-	this.unitecode = unitecode;
-	this.unitenom = unitenom;
-}
-public String getUnitecode() {
-	return unitecode;
-}
-public void setUnitecode(String unitecode) {
-	this.unitecode = unitecode;
-}
-public String getUnitenom() {
-	return unitenom;
-}
-public void setUnitenom(String unitenom) {
-	this.unitenom = unitenom;
-}
+	private String uniteCode;
+	private String uniteNom;
+	
+	
+	public TupleUnite() {
+	}
+	
+	public TupleUnite(String uniteCode, String uniteNom) {
+		this.uniteCode = uniteCode;
+		this.uniteNom = uniteNom;
+	}
+	public String getUniteCode() {
+		return uniteCode;
+	}
+	public void setUnitecode(String uniteCode) {
+		this.uniteCode = uniteCode;
+	}
+	public String getUniteNom() {
+		return uniteNom;
+	}
+	public void setUniteNom(String uniteNom) {
+		this.uniteNom = uniteNom;
+	}
 
 }

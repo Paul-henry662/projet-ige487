@@ -1,5 +1,7 @@
 package meca;
 
+import java.sql.Date;
+
 public class TuplePermis {
 	private String permiscode;
 	private String effectif; 

@@ -1,8 +1,10 @@
 package meca;
 
+import java.sql.PreparedStatement;
+
 public class TablePermisActivite {
-	private Preparedstatement stmtExiste;
-	private Preparedstatement stmtInsert;
-	private Preparedstatement stmtUpdate;
-	private Preparedstatement stmtDelete;
+	private PreparedStatement stmtExiste;
+	private PreparedStatement stmtInsert;
+	private PreparedStatement stmtUpdate;
+	private PreparedStatement stmtDelete;
 }

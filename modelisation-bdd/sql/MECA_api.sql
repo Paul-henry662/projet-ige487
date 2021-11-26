@@ -269,6 +269,30 @@ CREATE OR REPLACE VIEW Permis_V AS
   SELECT permis_id, permis_code , effectif , valide_debut , valide_fin
   FROM Permis;
 
+-- Modifier le code d'un permis
+CREATE OR REPLACE PROCEDURE Permis_mod_code
+  (
+    _permis_code_old Permis_Code,
+    _permis_code_new Permis_Code
+  )
+LANGUAGE SQL AS $$
+  UPDATE Permis
+  SET permis_code = _permis_code_new
+  WHERE permis_id = Permis(_permis_code_old)
+$$;
+
+-- Modifier le code d'un permis
+CREATE OR REPLACE PROCEDURE Permis_mod_code
+  (
+    _permis_code_old Permis_Code,
+    _permis_code_new Permis_Code
+  )
+LANGUAGE SQL AS $$
+  UPDATE Permis
+  SET permis_code = _permis_code_new
+  WHERE permis_id = Permis(_permis_code_old)
+$$;
+
 -- Insérer un permis
 CREATE OR REPLACE PROCEDURE Permis_ins
   (

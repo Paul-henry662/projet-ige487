@@ -1,5 +1,7 @@
 package meca;
 
+import java.sql.Date;
+
 public class TupleEffectif {
 	private String effMatr;
 	private String nom;
