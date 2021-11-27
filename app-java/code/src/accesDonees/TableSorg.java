@@ -1,11 +1,10 @@
-package meca;
+package accesDonees;
 
 import java.sql.PreparedStatement;
 
-public class TableEffectif {
+public class TableSorg {
 	private PreparedStatement stmtExiste;
 	private PreparedStatement stmtInsert;
 	private PreparedStatement stmtUpdate;
 	private PreparedStatement stmtDelete;
-
 }

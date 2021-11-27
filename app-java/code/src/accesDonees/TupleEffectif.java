@@ -1,4 +1,4 @@
-package meca;
+package accesDonees;
 
 import java.sql.Date;
 
@@ -41,5 +41,13 @@ public class TupleEffectif {
 	}
 	public void setDateNaissance(Date dateNaissance) {
 		this.dateNaissance = dateNaissance;
+	}
+	
+	@Override
+	public String toString() {
+		return "\nMatricule: "+this.effMatr
+				+"\nNom: "+this.nom
+				+"\nPrenom: "+this.prenom
+				+"\nDate de naissance: "+this.dateNaissance+"\n";
 	}
 }

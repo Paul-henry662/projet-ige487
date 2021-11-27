@@ -1,11 +1,13 @@
-package meca;
+package presentation;
 
 import javax.swing.JTextField;
 
 public class MecaTextField extends JTextField{
 
 	public MecaTextField() {
-		// TODO Auto-generated constructor stub
 	}
-
+	
+	public MecaTextField(String text) {
+		this.setText(text);
+	}
 }

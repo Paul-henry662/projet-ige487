@@ -1,4 +1,4 @@
-package meca;
+package accesDonees;
 
 public class TuplePermisActivite {
 	private String permis;

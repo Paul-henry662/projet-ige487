@@ -29,8 +29,8 @@ CREATE OR REPLACE VIEW Unite_V AS
   SELECT unite_code AS code, unite_nom AS nom
   FROM Unite;
 
--- Modifier le nom d'une UO
-CREATE OR REPLACE PROCEDURE Unite_mod_nom
+-- Modifier une UO
+CREATE OR REPLACE PROCEDURE Unite_mod
   (
     _code Unite_Code,
     _nom Unite_Nom
@@ -133,50 +133,26 @@ $$ LANGUAGE plpgsql;
 
 -- Evaluer les effectifs
 CREATE OR REPLACE VIEW Effectif_V AS
-  SELECT eff_id, nom , prenom , datenaissance
+  SELECT eff_matr, nom , prenom , datenaissance
   FROM Effectif;
 
--- Modifier le matricule d'un effectif
-CREATE OR REPLACE PROCEDURE Effectif_mod_nom
+-- Modifier un effectif
+CREATE OR REPLACE PROCEDURE Effectif_mod
   (
     _eff_matr_old Eff_Matr,
-    _eff_matr_new Eff_Matr
-  )
-LANGUAGE SQL AS $$
-  UPDATE Effectif
-  SET
-      eff_matr = _eff_matr_new
-  WHERE
-    eff_id = Effectif(_eff_matr_old)
-$$;
-
--- Modifier le nom et le prénom d'un effectif
-CREATE OR REPLACE PROCEDURE Effectif_mod_nom
-  (
-    _eff_matr Eff_Matr,
+    _eff_matr_new Eff_Matr,
     _nom TEXT,
-    _prenom TEXT
-  )
-LANGUAGE SQL AS $$
-  UPDATE Effectif
-  SET
-    nom = _nom,
-    prenom = _prenom
-  WHERE
-    eff_id = Effectif(_eff_matr)
-$$;
-
--- Modifier la date de naissance d'un effectif
-CREATE OR REPLACE PROCEDURE Effectif_mod_date_naiss
-  (
-    _eff_matr Eff_Matr,
+    _prenom TEXT,
     _dateNaissance DATE
   )
 LANGUAGE SQL AS $$
   UPDATE Effectif
   SET
+    eff_matr = _eff_matr_new,
+    nom = _nom,
+    prenom = _prenom,
     dateNaissance = _dateNaissance
-  WHERE eff_id = Effectif(_eff_matr)
+  WHERE eff_id = Effectif(_eff_matr_old)
 $$;
 
 -- Insérer un effectif
@@ -210,16 +186,23 @@ CREATE OR REPLACE VIEW Type_activite_V AS
   SELECT type, nom, description, actif
   FROM Type_activite;
 
--- Modifier le nom d'un type d'activité
-CREATE OR REPLACE PROCEDURE Type_activite_mod_nom
+-- Modifier un type d'activité
+CREATE OR REPLACE PROCEDURE Type_activite_mod
   (
-    _type Type_activite_Code,
-    _nom Type_activite_Nom
+    _type_old Type_activite_Code,
+    _type_new Type_activite_Code,
+    _nom Type_activite_Nom,
+    _description TEXT,
+    _actif BOOLEAN
   )
 LANGUAGE SQL AS $$
   UPDATE Type_activite
-  SET nom = _nom
-  WHERE type = _type
+  SET
+      type = _type_new,
+      nom = _nom,
+      description = _description,
+      actif = _actif
+  WHERE type = _type_old
 $$;
 
 -- Insérer un type d'activité
@@ -266,23 +249,15 @@ $$ LANGUAGE plpgsql;
 
 --Evaluer les permis
 CREATE OR REPLACE VIEW Permis_V AS
-  SELECT permis_id, permis_code , effectif , valide_debut , valide_fin
+  SELECT
+         permis_code,
+         effectif,
+         valide_debut,
+         valide_fin
   FROM Permis;
 
--- Modifier le code d'un permis
-CREATE OR REPLACE PROCEDURE Permis_mod_code
-  (
-    _permis_code_old Permis_Code,
-    _permis_code_new Permis_Code
-  )
-LANGUAGE SQL AS $$
-  UPDATE Permis
-  SET permis_code = _permis_code_new
-  WHERE permis_id = Permis(_permis_code_old)
-$$;
-
--- Modifier le code d'un permis
-CREATE OR REPLACE PROCEDURE Permis_mod_code
+-- Modifier un permis
+CREATE OR REPLACE PROCEDURE Permis_mod
   (
     _permis_code_old Permis_Code,
     _permis_code_new Permis_Code
@@ -384,31 +359,47 @@ BEGIN
 
   RETURN id;
 END;
-$$;
+$$
+LANGUAGE plpgsql;
 
 --Evaluer les prévisions
 CREATE OR REPLACE VIEW Prevision_V AS
   SELECT 
-    prevision_id , 
-    prevision_date , 
-    effectif , 
-    unite , 
-    type_activite , 
-    quantite , 
-    periode_debut , 
+    prevision_code,
+    prevision_date,
+    effectif,
+    unite,
+    type_activite,
+    quantite,
+    periode_debut,
     periode_fin
   FROM Prevision;
 
--- Modifier l'effectif d'une prévision
-CREATE OR REPLACE PROCEDURE Prevision_mod_eff
+-- Modifier une prévision
+CREATE OR REPLACE PROCEDURE Prevision_mod
   (
-    _prevision_code Prevision_Code,
-    _effectif Eff_Matr
+    _prevision_code_old Prevision_Code,
+    _prevision_code_new prevision_Code,
+    _prevision_date DATE,
+    _effectif Eff_Matr,
+    _unite Unite_Code,
+    _type_activite Type_activite_code,
+    _quantite Prevision_quantite,
+    _periode_debut DATE,
+    _periode_fin DATE
   )
 LANGUAGE SQL AS $$
   UPDATE Prevision
-  SET effectif = Effectif(_effectif)
-  WHERE prevision_code = _prevision_code
+  SET
+      prevision_code = _prevision_code_new,
+      prevision_date = _prevision_date,
+      effectif = Effectif(_effectif),
+      unite = _unite,
+      type_activite = _type_activite,
+      quantite = _quantite,
+      periode_debut = _periode_debut,
+      periode_fin = _periode_fin
+  WHERE prevision_code = _prevision_code_old
 $$;
 
 -- Insérer une prévision

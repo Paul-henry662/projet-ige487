@@ -1,4 +1,4 @@
-package meca;
+package traitement;
 
 public class GestionActivite {
 

@@ -1,4 +1,4 @@
-package meca;
+package presentation;
 
 import javax.swing.JPanel;
 

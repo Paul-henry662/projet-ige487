@@ -1,4 +1,4 @@
-package meca;
+package accesDonees;
 
 public class TupleTypeActivite {
 	private String type;

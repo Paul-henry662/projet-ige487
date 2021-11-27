@@ -1,4 +1,4 @@
-package meca;
+package accesDonees;
 
 import java.sql.Date;
 

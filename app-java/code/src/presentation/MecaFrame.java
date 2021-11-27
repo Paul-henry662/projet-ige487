@@ -1,4 +1,4 @@
-package meca;
+package presentation;
 
 import javax.swing.JFrame;
 
@@ -18,4 +18,10 @@ public class MecaFrame extends JFrame{
 		this.setVisible(true);
 	}
 	
+	public void switchPanel(MecaPanel panel) {
+		this.getContentPane().removeAll();
+		this.add(panel);
+		this.validate();
+		this.repaint();
+	}
 }

@@ -1,8 +1,8 @@
-package meca;
+package accesDonees;
 
 import java.sql.PreparedStatement;
 
-public class TablePrevision {
+public class TablePermisActivite {
 	private PreparedStatement stmtExiste;
 	private PreparedStatement stmtInsert;
 	private PreparedStatement stmtUpdate;
