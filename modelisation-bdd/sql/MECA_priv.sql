@@ -38,8 +38,8 @@ create table SOrg
   unite Unite_Code not null,
   super_unite Unite_Code not null,
   constraint sorg_cc0 primary key (unite, super_unite),
-  constraint sorg_cr0 foreign key (unite) references unite(unite_code),
-  constraint sorg_cr1 foreign key (super_unite) references unite(unite_code)
+  constraint sorg_cr0 foreign key (unite) references unite(unite_code) ON DELETE CASCADE,
+  constraint sorg_cr1 foreign key (super_unite) references unite(unite_code) ON DELETE CASCADE
 );
 comment on table SOrg is $$
 Une unité "unite" dépend administrativement de l’unité "super_unite".
@@ -88,7 +88,7 @@ create table Permis
   valide_debut DATE not null,
   valide_fin DATE not null,
   constraint permis_cc0 primary key (permis_id),
-  constraint permis_cr0 foreign key (effectif) references effectif(eff_id),
+  constraint permis_cr0 foreign key (effectif) references effectif(eff_id) ON DELETE CASCADE,
   constraint permis_dates check(valide_debut < valide_fin)
 );
 comment on table Permis is $$
@@ -101,8 +101,8 @@ create table Permis_activite
   permis Permis_ID not null,
   type_activite Type_activite_CODE not null,
   constraint permis_activite_c00 primary key (permis, type_activite),
-  constraint permis_activite_cr0 foreign key (permis) references Permis(permis_id),
-  constraint permis_activite_cr1 foreign key (type_activite) references Type_activite(type)
+  constraint permis_activite_cr0 foreign key (permis) references Permis(permis_id) ON DELETE CASCADE,
+  constraint permis_activite_cr1 foreign key (type_activite) references Type_activite(type) ON UPDATE CASCADE ON DELETE CASCADE
 );
 comment on table Permis_activite is $$
 Le permis permet d’exercer pour un ou plusieurs types d’acitivtés.
@@ -123,9 +123,9 @@ create table Prevision
   periode_fin DATE not null,
   constraint prevision_cc0 primary key (prevision_id),
   constraint prevision_cc1 unique (prevision_code),
-  constraint prevision_cr0 foreign key (effectif) references Effectif(eff_id),
-  constraint prevision_cr1 foreign key (unite) references Unite(unite_code),
-  constraint prevision_cr2 foreign key (type_activite) references Type_activite(type),
+  constraint prevision_cr0 foreign key (effectif) references Effectif(eff_id) ON DELETE CASCADE,
+  constraint prevision_cr1 foreign key (unite) references Unite(unite_code) ON DELETE CASCADE,
+  constraint prevision_cr2 foreign key (type_activite) references Type_activite(type) ON UPDATE CASCADE ON DELETE CASCADE,
   constraint prevision_periode check(periode_debut < periode_fin)
 );
 comment on table Prevision is $$

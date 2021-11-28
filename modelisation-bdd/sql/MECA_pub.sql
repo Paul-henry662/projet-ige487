@@ -23,7 +23,7 @@ Statut : solution préliminaire
 create domain Unite_ID
   INTEGER
   constraint unite_code_dom check (value > 0);
-comment on domain Unite_code is $$
+comment on domain Unite_ID is $$
 Code unique d’une unité organisationnelle.
 $$;
 --
@@ -31,7 +31,7 @@ $$;
 create domain Unite_Code
   VARCHAR(8)
   constraint unite_code_dom check (value similar to '[A-Z]{5}[0-9]{3}');
-comment on domain Unite_code is $$
+comment on domain Unite_Code is $$
 Code unique d’une unité organisationnelle.
 $$;
 --
@@ -55,7 +55,7 @@ create domain Eff_Matr
   VARCHAR(8)
   constraint eff_matr_dom check(value similar to '[0-9]{8}');
 comment on domain Eff_Matr is $$
-Matricule d’un effectif médical
+Matricule d’un effectif
 $$;
 
 --

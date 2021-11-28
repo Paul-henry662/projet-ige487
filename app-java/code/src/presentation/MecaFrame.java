@@ -1,6 +1,9 @@
 package presentation;
 
+import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class MecaFrame extends JFrame{
 	
@@ -15,6 +18,7 @@ public class MecaFrame extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(WIDTH, HEIGHT);
 		this.setResizable(false);
+		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
 	
@@ -23,5 +27,13 @@ public class MecaFrame extends JFrame{
 		this.add(panel);
 		this.validate();
 		this.repaint();
+	}
+	
+	public void displayError(String message) {
+		JOptionPane.showMessageDialog(this, message, "Erreur", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public void displaySuccess(String message) {
+		JOptionPane.showMessageDialog(this, message, "Succes", JOptionPane.INFORMATION_MESSAGE);
 	}
 }
