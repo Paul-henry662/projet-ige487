@@ -135,122 +135,85 @@ Une prévision ne peut être saisie que si l’effectif possède un permis valid
 d’accomplir le type d’activité durant toute la période prévue.
 $$;
 
--- FUNCTION: public.checkprevisiondate()
-
--- DROP FUNCTION public.checkprevisiondate();
-
-CREATE FUNCTION public.checkprevisiondate()
-    RETURNS trigger
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE NOT LEAKPROOF
-AS $BODY$
+--
+-- =================== Triggers et Trigger functions
+--
+CREATE OR REPLACE FUNCTION sorg_val()
+RETURNS TRIGGER
+LANGUAGE plpgsql AS $$
 BEGIN
-IF EXISTS (
+  IF NOT EXISTS(
       SELECT *
-      FROM Prevision
-      WHERE new.prevision_date < new.periode_debut
-      ) THEN
-  RETURN NEW; -- on peut procéder
-ELSE
-  RAISE EXCEPTION 'La date de prevision doit etre anterieure a sa portee';
-  RETURN NULL; -- Rien à insérer
-END IF;
+      FROM SOrg
+      WHERE unite = NEW.super_unite
+      AND super_unite = NEW.unite
+    )
+  THEN
+    RETURN NEW;
+  ELSE
+    RAISE EXCEPTION 'Structure hiérarchique des unités violée';
+    RETURN NULL;
+  END IF;
 END
-$BODY$;
+$$;
 
-ALTER FUNCTION public.checkprevisiondate()
-    OWNER TO postgres;
------------------------------
--- FUNCTION: public.checkvaliditylicenseprevision()
 
--- DROP FUNCTION public.checkvaliditylicenseprevision();
+CREATE OR REPLACE TRIGGER sorg_valide
+  AFTER INSERT OR UPDATE ON Sorg
+  FOR EACH ROW
+  EXECUTE PROCEDURE sorg_val();
 
-CREATE FUNCTION public.checkvaliditylicenseprevision()
-    RETURNS trigger
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE NOT LEAKPROOF
-AS $BODY$
+CREATE OR REPLACE FUNCTION prevision_permis()
+RETURNS TRIGGER
+LANGUAGE plpgsql AS $$
 BEGIN
-IF EXISTS (
-       SELECT *
-      FROM (Prevision JOIN Permis USING (effectif)) JOIN Permis_activite ON Permis.permis_id = Permis_activite.permis
-	  WHERE effectif = new.effectif AND Prevision.type_activite = Permis_activite.type_activite
-      ) THEN
-  RETURN NEW; -- on peut procéder
-ELSE
-  RAISE EXCEPTION 'La prevision ne peut etre saisie car le permis de l''effectif n''est pas valide';
-  RETURN NULL; -- Rien à insérer
-END IF;
+  IF EXISTS(
+      SELECT *
+      FROM Permis JOIN Permis_activite Pa on Permis.permis_id = Pa.permis
+      WHERE effectif = NEW.effectif
+      AND type_activite = NEW.type_activite
+      AND (NEW.periode_debut BETWEEN  valide_debut AND valide_fin)
+      AND (NEW.periode_fin BETWEEN valide_debut AND valide_fin)
+    )
+  THEN
+    RETURN NEW;
+  ELSE
+    RAISE EXCEPTION 'Cet ECA ne possède pas de permis pour cette activité dans cet intervalle de temps';
+    RETURN NULL;
+  END IF;
 END
-$BODY$;
+$$;
 
-ALTER FUNCTION public.checkvaliditylicenseprevision()
-    OWNER TO postgres;
---------------------------
--- FUNCTION: public.checkvalidityperiod()
+CREATE OR REPLACE TRIGGER prevision_permis
+  AFTER INSERT OR UPDATE ON Prevision
+  FOR EACH ROW
+  EXECUTE PROCEDURE prevision_permis();
 
--- DROP FUNCTION public.checkvalidityperiod();
-
-CREATE FUNCTION public.checkvalidityperiod()
-    RETURNS trigger
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE NOT LEAKPROOF
-AS $BODY$
+CREATE OR REPLACE FUNCTION permis_dates()
+RETURNS TRIGGER
+LANGUAGE plpgsql AS $$
 BEGIN
-IF EXISTS (SELECT effectif
-	FROM Permis
-	GROUP BY effectif
-    HAVING COUNT(new.effectif) > 1)
-THEN
-	IF NOT EXISTS (SELECT valide_debut, valide_fin
-		FROM Permis
-		GROUP BY effectif, valide_debut, valide_fin
-		HAVING COUNT(new.valide_debut) > 1 AND COUNT(new.valide_fin) > 1)
-	THEN
-		RETURN NEW; -- on peut procéder
-	ELSE
-		RAISE EXCEPTION 'Les periodes de validite de differents permis ne se chevauchent pas';
-	    RETURN NULL; -- Rien à insérer
-	END IF;
-ELSE
-	RAISE EXCEPTION 'Cet effectif ne possede pas plus d'' un permis';
-	RETURN NULL; -- Rien à insérer
-END IF;
+  IF EXISTS(
+      SELECT *
+      FROM Permis p1 JOIN Permis p2 USING (effectif)
+      WHERE p1.permis_id <> p2.permis_id
+      AND p1.valide_debut <= p2.valide_fin
+      AND p1.valide_fin >= p2.valide_debut
+    )
+  THEN
+    RAISE EXCEPTION 'Cet ECA possède déjà un permis dont les dates chevauchent avec celui-ci';
+    RETURN NULL;
+  ELSE
+    RETURN NEW;
+  END IF;
 END
-$BODY$;
-
-ALTER FUNCTION public.checkvalidityperiod()
-    OWNER TO postgres;
---------------------
--- FUNCTION: public.effectif_type_activite_disjoint()
-
--- DROP FUNCTION public.effectif_type_activite_disjoint();
-
-CREATE FUNCTION public.effectif_type_activite_disjoint()
-    RETURNS trigger
-    LANGUAGE 'plpgsql'
-    COST 100
-    VOLATILE NOT LEAKPROOF
-AS $BODY$
-BEGIN
-IF NOT EXISTS (
-      SELECT * FROM Effectif NATURAL JOIN Type_activite
-      ) THEN
-  RETURN NEW; -- on peut procéder
-ELSE
-  RAISE EXCEPTION 'Effectif et Type_activite doivent être disjoints';
-  RETURN NULL; -- Rien à insérer
-END IF;
-END
-$BODY$;
-
-ALTER FUNCTION public.effectif_type_activite_disjoint()
-    OWNER TO postgres;
+$$;
 
 
+CREATE OR REPLACE TRIGGER permis_dates
+  AFTER INSERT OR UPDATE ON Permis
+  FOR EACH ROW
+  EXECUTE PROCEDURE permis_dates();
 /*
 -- =========================================================================== Z
 Contributeurs :

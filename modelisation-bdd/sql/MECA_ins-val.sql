@@ -92,19 +92,19 @@ VALUES('TAA5', 'typeActiviteA5', 'description du type d activite A5', FALSE);
 -- Insertions dans Permis
 -- ========================================================================
 INSERT INTO Permis(permis_code, effectif, valide_debut, valide_fin)
-VALUES('Perm001', Effectif('00000001'), '2021-11-20', '2022-11-20');
+VALUES('Perm001', Effectif('00000001'), '2020-11-20', '2030-11-20');
 
 INSERT INTO Permis(permis_code, effectif, valide_debut, valide_fin)
-VALUES('Perm002', Effectif('00000002'), '2021-12-20', '2022-01-20');
+VALUES('Perm002', Effectif('00000002'), '2020-12-20', '2030-01-20');
 
 INSERT INTO Permis(permis_code, effectif, valide_debut, valide_fin)
-VALUES('Perm003', Effectif('00000003'), '2021-11-20', '2022-05-20');
+VALUES('Perm003', Effectif('00000003'), '2020-11-20', '2030-05-20');
 
 INSERT INTO Permis(permis_code, effectif, valide_debut, valide_fin)
-VALUES('Perm004', Effectif('00000004'), '2022-10-22', '2025-10-22');
+VALUES('Perm004', Effectif('00000004'), '2020-10-22', '2030-10-22');
 
 INSERT INTO Permis(permis_code, effectif, valide_debut, valide_fin)
-VALUES('Perm005', Effectif('00000005'), '2021-12-01', '2023-12-01');
+VALUES('Perm005', Effectif('00000005'), '2020-12-01', '2030-12-01');
 
 -- ========================================================================
 -- Insertions dans Permis_activite
@@ -143,10 +143,10 @@ INSERT INTO Prevision(prevision_code, prevision_date, effectif, unite, type_acti
 VALUES('Prev0005', '2021-11-22', Effectif('00000003'), 'UNITE001', 'TAA3', 4.3, '2023-11-20', '2024-12-20');
 
 INSERT INTO Prevision(prevision_code, prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
-VALUES('Prev0006', '2021-11-22', Effectif('00000004'), 'UNITE004', 'TAA1', 1.5, '2023-11-20', '2024-12-20');
+VALUES('Prev0006', '2021-11-22', Effectif('00000004'), 'UNITE004', 'TAA4', 1.5, '2023-11-20', '2024-12-20');
 
 INSERT INTO Prevision(prevision_code, prevision_date, effectif, unite, type_activite, quantite, periode_debut, periode_fin)
-VALUES('Prev0007', '2021-11-22', Effectif('00000006'), 'UNITE005', 'TAA5', 0.8, '2022-11-20', '2023-01-20');
+VALUES('Prev0007', '2021-11-22', Effectif('00000005'), 'UNITE005', 'TAA5', 0.8, '2022-11-20', '2023-01-20');
 /*
 -- =========================================================================== Z
 Contributeurs :

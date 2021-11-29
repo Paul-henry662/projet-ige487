@@ -35,6 +35,15 @@ DROP DOMAIN Prevision_Code CASCADE;
 DROP DOMAIN Permis_CODE CASCADE;
 DROP DOMAIN Prevision_ID CASCADE;
 DROP DOMAIN Prevision_quantite CASCADE;
+
+DROP ROLE paulhenry;
+DROP ROLE sonia;
+DROP ROLE gregori;
+DROP ROLE marlene;
+
+DROP ROLE superAdmin;
+DROP ROLE administrateur;
+DROP ROLE utilisateur;
 /*
 -- =========================================================================== Z
 Contributeurs :

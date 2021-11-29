@@ -429,8 +429,6 @@ LANGUAGE SQL AS $$
   WHERE prevision_id = Prevision(_prevision_code)
 $$;
 
-
-
 /*
 -- =========================================================================== Z
 Contributeurs :

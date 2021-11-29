@@ -20,13 +20,6 @@ Statut : solution préliminaire
 --
 -- =================== Unité organisationnelle
 --
-create domain Unite_ID
-  INTEGER
-  constraint unite_code_dom check (value > 0);
-comment on domain Unite_ID is $$
-Code unique d’une unité organisationnelle.
-$$;
---
 
 create domain Unite_Code
   VARCHAR(8)

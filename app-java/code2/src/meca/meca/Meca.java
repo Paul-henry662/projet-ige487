@@ -13,9 +13,10 @@ public class Meca {
 	}
 
 	public static void main(String[] args) throws SQLException, MecaException {
-		Meca meca = new Meca("local", "MECA", "marlene", "azerty");
+		Meca meca = new Meca("local", "MECA","paulhenry", "groupe2");
 		
-		System.out.println(meca.gestionMeca.getGestionEffectifs().rechercherByMatr("00000002"));
+		meca.gestionMeca.getGestionEffectifs().ajouterEffectif("00000012", "azerty", "babylone", "2002-06-06");
+		
 	}
 
 }
