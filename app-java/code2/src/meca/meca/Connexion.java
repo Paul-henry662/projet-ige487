@@ -1,58 +1,128 @@
 package meca.meca;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class Connexion {
 
 	private Connection conn;
 
 	/**
-	 * 
-	 * @param serveur
-	 * @param bd
-	 * @param user
-	 * @param pass
-	 */
-	public Connexion(String serveur, String bd, String user, String pass) {
-		// TODO - implement Connexion.Connexion
-		throw new UnsupportedOperationException();
-	}
+     * Ouverture d'une connexion en mode autocommit false et sérialisable (si
+     * supporté)
+     * 
+     * @param serveur Le type de serveur SQL à utiliser (Valeur : local, dinf).
+     * @param bd      Le nom de la base de données sur le serveur.
+     * @param user    Le nom d'utilisateur à utiliser pour se connecter à la base de données.
+     * @param pass    Le mot de passe associé à l'utilisateur.
+     */
+    public Connexion(String serveur, String bd, String user, String pass)
+            throws MecaException, SQLException
+    {
+        Driver d;
+        try
+        {
+            d = (Driver)Class.forName("org.postgresql.Driver").newInstance();
+            DriverManager.registerDriver(d);
+            
+            if (serveur.equals("local"))
+            {
+                conn = DriverManager.getConnection("jdbc:postgresql:" + bd, user, pass);
+            }
+            else if (serveur.equals("dinf"))
+            {
+                conn = DriverManager.getConnection("jdbc:postgresql://bd-info2.dinf.usherbrooke.ca:5432/" + bd + "?ssl=true&sslmode=require", user, pass);
+            }
+            else
+            {
+                throw new MecaException("Serveur inconnu");
+            }
 
-	public void fermer() {
-		// TODO - implement Connexion.fermer
-		throw new UnsupportedOperationException();
-	}
+            // Mise en mode de commit manuel
+            conn.setAutoCommit(false);
 
-	public void commit() {
-		// TODO - implement Connexion.commit
-		throw new UnsupportedOperationException();
-	}
+            // Mise en mode sérialisable, si possible
+            // (plus haut niveau d'integrité pour l'accès concurrent aux données)
+            DatabaseMetaData dbmd = conn.getMetaData();
+            if (dbmd.supportsTransactionIsolationLevel(Connection.TRANSACTION_SERIALIZABLE))
+            {
+                conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+                System.out.println("Ouverture de la connexion en mode sérialisable :\n"
+                        + "Connecté sur la BD postgreSQL "
+                        + bd + " avec l'utilisateur " + user);
+            }
+            else
+            {
+                System.out.println("Ouverture de la connexion en mode read committed (default) :\n"
+                        + "Connecté sur la BD postgreSQL "
+                        + bd + " avec l'utilisateur " + user);
+            }
+        }
+        catch (SQLException e)
+        {
+            throw e;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace(System.out);
+            throw new MecaException("JDBC Driver non instancié");
+        }
+    }
 
-	public void rollback() {
-		// TODO - implement Connexion.rollback
-		throw new UnsupportedOperationException();
-	}
+    /**
+     * Fermeture d'une connexion
+     */
+    public void fermer() throws SQLException
+    {
+        conn.rollback();
+        conn.close();
+        System.out.println("Connexion fermée " + conn);
+    }
 
-	public Connection getConnection() {
-		// TODO - implement Connexion.getConnection
-		throw new UnsupportedOperationException();
-	}
+    /**
+     * Commit
+     */
+    public void commit() throws SQLException
+    {
+        conn.commit();
+    }
 
-	/**
-	 * 
-	 * @param m
-	 */
-	public void setAutoCommit(boolean m) {
-		// TODO - implement Connexion.setAutoCommit
-		throw new UnsupportedOperationException();
-	}
+    public void setIsolationReadCommited() throws SQLException
+    {
+        conn.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+    }
 
-	public String serveursSupportes() {
-		// TODO - implement Connexion.serveursSupportes
-		throw new UnsupportedOperationException();
-	}
+    /**
+     * Rollback
+     */
+    public void rollback() throws SQLException
+    {
+        conn.rollback();
+    }
 
-	public void setIsolationReadCommited() {
-		// TODO - implement Connexion.setIsolationReadCommited
-		throw new UnsupportedOperationException();
-	}
+    /**
+     * Retourne la Connection JDBC
+     */
+    public Connection getConnection()
+    {
+        return conn;
+    }
 
+    public void setAutoCommit(boolean m) throws SQLException
+    {
+        conn.setAutoCommit(false);
+    }
+
+    /**
+     * Retourne la liste des serveurs supportés par ce gestionnaire de
+     * connexions
+     */
+    public static String serveursSupportes()
+    {
+        return "local : PostgreSQL installé localement\n"
+             + "dinf  : PostgreSQL installé sur les serveurs du département\n";
+    }
 }

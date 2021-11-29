@@ -6,19 +6,14 @@ public class TupleSorg {
 	private String superUnite;
 
 	public TupleSorg() {
-		// TODO - implement TupleSorg.TupleSorg
-		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param unite
-	 * @param superUnite
-	 */
+
 	public TupleSorg(String unite, String superUnite) {
-		// TODO - implement TupleSorg.TupleSorg
-		throw new UnsupportedOperationException();
+		this.unite = unite;
+		this.superUnite = superUnite;
 	}
+
 
 	public String getUnite() {
 		return this.unite;

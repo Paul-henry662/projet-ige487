@@ -1,8 +1,12 @@
 package meca.accesAuxDonnees;
 
+import java.sql.PreparedStatement;
+import java.util.List;
+
+import meca.meca.*;
+
 public class TableTypeActivite {
 
-	private Connexion cx;
 	private PreparedStatement stmtFindAll;
 	private PreparedStatement stmtFindByType;
 	private PreparedStatement stmtFindByNom;
@@ -11,6 +15,7 @@ public class TableTypeActivite {
 	private PreparedStatement stmtUpdate;
 	private PreparedStatement stmtInsert;
 	private PreparedStatement stmtDelete;
+	private Connexion cx;
 
 	/**
 	 * 
@@ -71,7 +76,7 @@ public class TableTypeActivite {
 	 * 
 	 * @param actif
 	 */
-	public List<TupleActivite> findByActif(boolean actif) {
+	public List<TupleTypeActivite> findByActif(boolean actif) {
 		// TODO - implement TableTypeActivite.findByActif
 		throw new UnsupportedOperationException();
 	}

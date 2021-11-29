@@ -1,5 +1,7 @@
 package meca.accesAuxDonnees;
 
+import java.sql.Date;
+
 public class TuplePermis {
 
 	private String permisCode;

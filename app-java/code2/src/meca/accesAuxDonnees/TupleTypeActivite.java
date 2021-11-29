@@ -8,21 +8,16 @@ public class TupleTypeActivite {
 	private boolean actif;
 
 	public TupleTypeActivite() {
-		// TODO - implement TupleTypeActivite.TupleTypeActivite
-		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param type
-	 * @param nom
-	 * @param description
-	 * @param actif
-	 */
 	public TupleTypeActivite(String type, String nom, String description, boolean actif) {
-		// TODO - implement TupleTypeActivite.TupleTypeActivite
-		throw new UnsupportedOperationException();
+		super();
+		this.type = type;
+		this.nom = nom;
+		this.description = description;
+		this.actif = actif;
 	}
+
 
 	public String getType() {
 		return this.type;

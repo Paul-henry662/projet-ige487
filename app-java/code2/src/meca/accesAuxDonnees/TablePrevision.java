@@ -1,8 +1,14 @@
 package meca.accesAuxDonnees;
 
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+
 import meca.meca.*;
 
 public class TablePrevision {
+
 	private PreparedStatement stmtFindAll;
 	private PreparedStatement stmtFindByCode;
 	private PreparedStatement stmtFindByDate;
@@ -20,10 +26,23 @@ public class TablePrevision {
 	/**
 	 * 
 	 * @param cx
+	 * @throws SQLException 
 	 */
-	public TablePrevision(Connexion cx) {
-		// TODO - implement TablePrevision.TablePrevision
-		throw new UnsupportedOperationException();
+	public TablePrevision(Connexion cx) throws SQLException {
+		this.cx = cx;
+		
+		this.stmtInsert = cx.getConnection().prepareStatement("CALL Prevision_ins(?, ?, ?, ?, ?, ?, ?, ?)");
+		this.stmtDelete = cx.getConnection().prepareStatement("CALL Prevision_ret(?)");
+		this.stmtUpdate = cx.getConnection().prepareStatement("CALL Prevision_mod(?, ?, ?, ?, ?, ?, ?, ?)");
+		this.stmtFindAll = cx.getConnection().prepareStatement("SELECT * FROM Prevision_V");
+		this.stmtFindByCode = cx.getConnection().prepareStatement("SELECT * FROM Prevision_V WHERE prevision_code = ?");
+		this.stmtFindByDate = cx.getConnection().prepareStatement("SELECT * FROM Prevision_V WHERE prevision_date = ?");
+		this.stmtFindByEffectif = cx.getConnection().prepareStatement("SELECT * FROM Prevision_V WHERE LOWER(prenom) = LOWER(?)");
+		this.stmtFindByUnite = cx.getConnection().prepareStatement("SELECT * FROM Prevision_V WHERE dateNaissance = ?");
+		this.stmtFindByActivite = cx.getConnection().prepareStatement("SELECT * FROM Prevision_V WHERE dateNaissance = ?");
+		this.stmtFindByQuantite = cx.getConnection().prepareStatement("SELECT * FROM Prevision_V WHERE dateNaissance = ?");
+		this.stmtFindByDebut = cx.getConnection().prepareStatement("SELECT * FROM Prevision_V WHERE dateNaissance = ?");
+		this.stmtFindByFin = cx.getConnection().prepareStatement("SELECT * FROM Prevision_V WHERE dateNaissance = ?");
 	}
 
 	public Connexion getConnection() {
@@ -156,51 +175,6 @@ public class TablePrevision {
 	 */
 	public void supprimerPrevision(String previsionCode) {
 		// TODO - implement TablePrevision.supprimerPrevision
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param cx
-	 */
-	public TablePrevision(Connexion cx) {
-		// TODO - implement TablePrevision.TablePrevision
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param cx
-	 */
-	public TablePrevision(Connexion cx) {
-		// TODO - implement TablePrevision.TablePrevision
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param cx
-	 */
-	public TablePrevision(Connexion cx) {
-		// TODO - implement TablePrevision.TablePrevision
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param cx
-	 */
-	public TablePrevision(Connexion cx) {
-		// TODO - implement TablePrevision.TablePrevision
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param cx
-	 */
-	public TablePrevision(Connexion cx) {
-		// TODO - implement TablePrevision.TablePrevision
 		throw new UnsupportedOperationException();
 	}
 

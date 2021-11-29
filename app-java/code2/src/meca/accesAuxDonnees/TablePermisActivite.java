@@ -1,8 +1,12 @@
 package meca.accesAuxDonnees;
 
+import java.sql.PreparedStatement;
+import java.util.List;
+
 import meca.meca.*;
 
 public class TablePermisActivite {
+
 	private PreparedStatement stmtFind;
 	private PreparedStatement stmtFindAll;
 	private PreparedStatement stmtFindByPermis;
@@ -98,51 +102,6 @@ public class TablePermisActivite {
 	 */
 	public void supprimerPermisActivite(String permisCode, String typeActivite) {
 		// TODO - implement TablePermisActivite.supprimerPermisActivite
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param cx
-	 */
-	public TablePermisActivite(Connexion cx) {
-		// TODO - implement TablePermisActivite.TablePermisActivite
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param cx
-	 */
-	public TablePermisActivite(Connexion cx) {
-		// TODO - implement TablePermisActivite.TablePermisActivite
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param cx
-	 */
-	public TablePermisActivite(Connexion cx) {
-		// TODO - implement TablePermisActivite.TablePermisActivite
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param cx
-	 */
-	public TablePermisActivite(Connexion cx) {
-		// TODO - implement TablePermisActivite.TablePermisActivite
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param cx
-	 */
-	public TablePermisActivite(Connexion cx) {
-		// TODO - implement TablePermisActivite.TablePermisActivite
 		throw new UnsupportedOperationException();
 	}
 

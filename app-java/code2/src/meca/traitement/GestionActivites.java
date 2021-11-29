@@ -1,6 +1,9 @@
 package meca.traitement;
 
 import meca.meca.*;
+
+import java.util.List;
+
 import meca.accesAuxDonnees.*;
 
 public class GestionActivites {
@@ -21,7 +24,7 @@ public class GestionActivites {
 		throw new UnsupportedOperationException();
 	}
 
-	public List<Permis> listerPermis() {
+	public List<TuplePermis> listerPermis() {
 		// TODO - implement GestionActivites.listerPermis
 		throw new UnsupportedOperationException();
 	}

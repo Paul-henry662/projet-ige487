@@ -1,8 +1,13 @@
 package meca.accesAuxDonnees;
 
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.util.List;
+
 import meca.meca.*;
 
 public class TablePermis {
+
 	private PreparedStatement stmtFindAll;
 	private PreparedStatement stmtFindByCode;
 	private PreparedStatement stmtFindByEffectif;
@@ -92,78 +97,6 @@ public class TablePermis {
 	 */
 	public void supprimerPermis(String permisCode) {
 		// TODO - implement TablePermis.supprimerPermis
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param cx
-	 */
-	public TablePermis(Connexion cx) {
-		// TODO - implement TablePermis.TablePermis
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param cx
-	 */
-	public TablePermis(Connexion cx) {
-		// TODO - implement TablePermis.TablePermis
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param cx
-	 */
-	public TablePermis(Connexion cx) {
-		// TODO - implement TablePermis.TablePermis
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param cx
-	 */
-	public TablePermis(Connexion cx) {
-		// TODO - implement TablePermis.TablePermis
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param cx
-	 */
-	public TablePermis(Connexion cx) {
-		// TODO - implement TablePermis.TablePermis
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param cx
-	 */
-	public TablePermis(Connexion cx) {
-		// TODO - implement TablePermis.TablePermis
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param cx
-	 */
-	public TablePermis(Connexion cx) {
-		// TODO - implement TablePermis.TablePermis
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param cx
-	 */
-	public TablePermis(Connexion cx) {
-		// TODO - implement TablePermis.TablePermis
 		throw new UnsupportedOperationException();
 	}
 

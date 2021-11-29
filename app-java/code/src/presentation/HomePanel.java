@@ -1,5 +1,7 @@
 package presentation;
 
+import java.awt.BorderLayout;
+
 public class HomePanel extends MecaPanel {
 	
 	private MecaButton btnGestionEffectifs;
@@ -16,10 +18,10 @@ public class HomePanel extends MecaPanel {
 		this.btnGestionUnites = new MecaButton(this, "Gestion UO");
 		this.btnGestionPrevisions = new MecaButton(this, "Gestion Prévisions");
 		
-		this.add(btnGestionEffectifs);
-		this.add(btnGestionActivites);
-		this.add(btnGestionUnites);
-		this.add(btnGestionPrevisions);
+		this.add(btnGestionEffectifs, BorderLayout.PAGE_START);
+		this.add(btnGestionActivites, BorderLayout.LINE_START);
+		this.add(btnGestionUnites, BorderLayout.LINE_END);
+		this.add(btnGestionPrevisions, BorderLayout.PAGE_END);
 	}
 
 	public MecaButton getBtnGestionEffectifs() {

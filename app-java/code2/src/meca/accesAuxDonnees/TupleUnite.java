@@ -6,20 +6,14 @@ public class TupleUnite {
 	private String uniteNom;
 
 	public TupleUnite() {
-		// TODO - implement TupleUnite.TupleUnite
-		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param uniteCode
-	 * @param uniteNom
-	 */
 	public TupleUnite(String uniteCode, String uniteNom) {
-		// TODO - implement TupleUnite.TupleUnite
-		throw new UnsupportedOperationException();
+		this.uniteCode = uniteCode;
+		this.uniteNom = uniteNom;
 	}
 
+	
 	public String getUniteCode() {
 		return this.uniteCode;
 	}

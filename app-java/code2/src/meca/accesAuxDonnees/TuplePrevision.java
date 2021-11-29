@@ -1,5 +1,7 @@
 package meca.accesAuxDonnees;
 
+import java.sql.Date;
+
 public class TuplePrevision {
 
 	private String previsionCode;
@@ -12,25 +14,23 @@ public class TuplePrevision {
 	private Date periodeFin;
 
 	public TuplePrevision() {
-		// TODO - implement TuplePrevision.TuplePrevision
-		throw new UnsupportedOperationException();
+		
 	}
 
-	/**
-	 * 
-	 * @param previsionCode
-	 * @param previsionDate
-	 * @param effectif
-	 * @param unite
-	 * @param typeActivite
-	 * @param quantite
-	 * @param periodeDebut
-	 * @param periodeFin
-	 */
-	public TuplePrevision(String previsionCode, Date previsionDate, String effectif, String unite, String typeActivite, double quantite, Date periodeDebut, Date periodeFin) {
-		// TODO - implement TuplePrevision.TuplePrevision
-		throw new UnsupportedOperationException();
+	public TuplePrevision(String previsionCode, Date previsionDate, String effectif, String unite, String typeActivite,
+			double quantite, Date periodeDebut, Date periodeFin) {
+
+		this.previsionCode = previsionCode;
+		this.previsionDate = previsionDate;
+		this.effectif = effectif;
+		this.unite = unite;
+		this.typeActivite = typeActivite;
+		this.quantite = quantite;
+		this.periodeDebut = periodeDebut;
+		this.periodeFin = periodeFin;
 	}
+
+
 
 	public String getPrevisionCode() {
 		return this.previsionCode;

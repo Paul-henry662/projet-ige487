@@ -1,6 +1,6 @@
 package meca.meca;
 
-public class MecaException {
+public class MecaException extends Exception{
 
 	private static long serialVersionUID = 1L;
 
@@ -9,8 +9,7 @@ public class MecaException {
 	 * @param message
 	 */
 	public MecaException(String message) {
-		// TODO - implement MecaException.MecaException
-		throw new UnsupportedOperationException();
+		super(message);
 	}
 
 }

@@ -1,5 +1,7 @@
 package meca.accesAuxDonnees;
 
+import java.sql.Date;
+
 public class TupleEffectif {
 
 	private String effMatr;
@@ -8,8 +10,14 @@ public class TupleEffectif {
 	private Date dateNaiss;
 
 	public TupleEffectif() {
-		// TODO - implement TupleEffectif.TupleEffectif
-		throw new UnsupportedOperationException();
+
+	}
+	
+	public TupleEffectif(String effMatr, String nom, String prenom, Date dateNaiss) {
+		this.effMatr = effMatr;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.dateNaiss = dateNaiss;
 	}
 
 	/**
@@ -72,4 +80,11 @@ public class TupleEffectif {
 		this.dateNaiss = dateNaiss;
 	}
 
+	@Override
+	public String toString() {
+		return "\nMatricule: "+this.effMatr
+				+"\nNom: "+this.nom
+				+"\nPrenom: "+this.prenom
+				+"\nDate de naissance: "+this.dateNaiss;
+	}
 }
