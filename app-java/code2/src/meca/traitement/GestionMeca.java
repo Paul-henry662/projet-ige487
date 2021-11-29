@@ -32,7 +32,17 @@ public class GestionMeca {
 	public GestionMeca(String serveur, String bd, String user, String pass) throws SQLException, MecaException {
 		this.cx = new Connexion(serveur, bd, user, pass);
 		this.effectifs = new TableEffectif(cx);
+		this.permis = new TablePermis(cx);
+		this.typesActivites = new TableTypeActivite(cx);
+		this.permisActivites = new TablePermisActivite(cx);
+		this.unites = new TableUnite(cx);
+		this.sorgs = new TableSorg(cx);
+		this.previsions = new TablePrevision(cx);
+		
 		this.gestionEffectifs = new GestionEffectifs(effectifs);
+		this.gestionActivites = new GestionActivites(permis, typesActivites, permisActivites);
+		this.gestionUnites = new GestionUnites(unites, sorgs);
+		this.gestionPrevisions = new GestionPrevisions(previsions);
 	}
 
 	

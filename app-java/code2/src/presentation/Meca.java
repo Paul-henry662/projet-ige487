@@ -1,7 +1,8 @@
-package meca.meca;
+package presentation;
 
 import java.sql.SQLException;
 
+import meca.meca.MecaException;
 import meca.traitement.GestionMeca;
 
 public class Meca {
@@ -13,10 +14,9 @@ public class Meca {
 	}
 
 	public static void main(String[] args) throws SQLException, MecaException {
-		Meca meca = new Meca("local", "MECA","paulhenry", "groupe2");
+		Meca meca = new Meca("local", "MECA","paulhenry", "azerty");		
 		
-		meca.gestionMeca.getGestionEffectifs().ajouterEffectif("00000012", "azerty", "babylone", "2002-06-06");
-		
+		meca.gestionMeca.getGestionUnites().ajouterUnite("UNITE101", "nomUnite101");
 	}
 
 }
