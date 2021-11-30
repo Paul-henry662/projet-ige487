@@ -21,8 +21,10 @@ public class GestionEffectifs {
 	
 	public void ajouterEffectif(String effMatr, String nom, String prenom, String dateNaissance) throws SQLException, MecaException {
 		
-		if(effMatr.length() == 0 || nom.length() == 0 || prenom.length() == 0 || dateNaissance.length() == 0)
+		if(effMatr.length() == 0 || nom.length() == 0 || prenom.length() == 0 || dateNaissance.length() == 0) {
+			cx.rollback();
 			throw new MecaException("Un ou plusieurs champ(s) manquant(s)");
+		}
 		
 		try {
 			Date dateNaiss = Date.valueOf(dateNaissance);

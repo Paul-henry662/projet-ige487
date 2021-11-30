@@ -2,41 +2,52 @@ package meca.accesAuxDonnees;
 
 public class TupleSorg {
 
-	private String unite;
-	private String superUnite;
+	private String uniteCode;
+	private String uniteNom;
+	private String superUniteCode;
+	private String superUniteNom;
+	
+	public TupleSorg(String uniteCode, String uniteNom, String superUniteCode, String superUniteNom) {
+		this.uniteCode = uniteCode;
+		this.uniteNom = uniteNom;
+		this.superUniteCode = superUniteCode;
+		this.superUniteNom = superUniteNom;
+	}
 
 	public TupleSorg() {
 	}
 
-
-	public TupleSorg(String unite, String superUnite) {
-		this.unite = unite;
-		this.superUnite = superUnite;
+	public String getUniteCode() {
+		return uniteCode;
 	}
 
-
-	public String getUnite() {
-		return this.unite;
+	public void setUniteCode(String uniteCode) {
+		this.uniteCode = uniteCode;
 	}
 
-	/**
-	 * 
-	 * @param unite
-	 */
-	public void setUnite(String unite) {
-		this.unite = unite;
+	public String getUniteNom() {
+		return uniteNom;
 	}
 
-	public String getSuperUnite() {
-		return this.superUnite;
+	public void setUniteNom(String uniteNom) {
+		this.uniteNom = uniteNom;
 	}
 
-	/**
-	 * 
-	 * @param superUnite
-	 */
-	public void setSuperUnite(String superUnite) {
-		this.superUnite = superUnite;
+	public String getSuperUniteCode() {
+		return superUniteCode;
 	}
+
+	public void setSuperUniteCode(String superUniteCode) {
+		this.superUniteCode = superUniteCode;
+	}
+
+	public String getSuperUniteNom() {
+		return superUniteNom;
+	}
+
+	public void setSuperUniteNom(String superUniteNom) {
+		this.superUniteNom = superUniteNom;
+	}
+
 
 }

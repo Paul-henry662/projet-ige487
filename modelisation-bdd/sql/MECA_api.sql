@@ -68,8 +68,14 @@ $$;
 --
 -- Evaluer les SOrg
 CREATE OR REPLACE VIEW SOrg_V AS
-  SELECT unite, super_unite
-  FROM SOrg;
+  SELECT
+    SOrg.unite AS unite_code,
+    u1.unite_nom,
+    SOrg.super_unite AS super_unite_code,
+    u2.unite_nom AS super_unite_nom
+
+  FROM (SOrg JOIN Unite u1 ON SOrg.unite = u1.unite_code)
+    JOIN Unite u2 ON SOrg.super_unite = u2.unite_code;
 
 -- Modifier une SOrg
 CREATE OR REPLACE PROCEDURE SOrg_mod
@@ -251,10 +257,10 @@ $$ LANGUAGE plpgsql;
 CREATE OR REPLACE VIEW Permis_V AS
   SELECT
          permis_code,
-         effectif,
+         eff_matr AS effectif,
          valide_debut,
          valide_fin
-  FROM Permis;
+  FROM Permis JOIN effectif e on e.eff_id = permis.effectif;
 
 -- Modifier un permis
 CREATE OR REPLACE PROCEDURE Permis_mod
@@ -296,8 +302,15 @@ $$;
 --
 -- Evaluer les associations Permis_activite
 CREATE OR REPLACE VIEW Permis_activite_V AS
-  SELECT permis, type_activite
-  FROM Permis_activite;
+  SELECT
+    p.permis_code AS permis,
+    type_activite,
+    ta.description
+
+  FROM
+    Permis_activite JOIN permis p on p.permis_id = permis_activite.permis
+    JOIN
+    type_activite ta on permis_activite.type_activite = ta.type;
 
 -- Modifier une association Permis_activite
 CREATE OR REPLACE PROCEDURE Permis_activite_mod
@@ -367,13 +380,14 @@ CREATE OR REPLACE VIEW Prevision_V AS
   SELECT 
     prevision_code,
     prevision_date,
-    effectif,
+    e.eff_matr AS effectif,
     unite,
     type_activite,
     quantite,
     periode_debut,
     periode_fin
-  FROM Prevision;
+  FROM
+    Prevision JOIN effectif e ON e.eff_id = prevision.effectif;
 
 -- Modifier une prévision
 CREATE OR REPLACE PROCEDURE Prevision_mod

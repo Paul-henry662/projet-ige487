@@ -4,21 +4,19 @@ public class TuplePermisActivite {
 
 	private String permisCode;
 	private String typeActivite;
+	private String description;
 
 	public TuplePermisActivite() {
-		// TODO - implement TuplePermisActivite.TuplePermisActivite
-		throw new UnsupportedOperationException();
+
+	}
+	
+
+	public TuplePermisActivite(String permisCode, String typeActivite, String description) {
+		this.permisCode = permisCode;
+		this.typeActivite = typeActivite;
+		this.description = description;
 	}
 
-	/**
-	 * 
-	 * @param permisCode
-	 * @param typeActivite
-	 */
-	public TuplePermisActivite(String permisCode, String typeActivite) {
-		// TODO - implement TuplePermisActivite.TuplePermisActivite
-		throw new UnsupportedOperationException();
-	}
 
 	public String getPermisCode() {
 		return this.permisCode;
@@ -42,6 +40,16 @@ public class TuplePermisActivite {
 	 */
 	public void setTypeActivite(String typeActivite) {
 		this.typeActivite = typeActivite;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

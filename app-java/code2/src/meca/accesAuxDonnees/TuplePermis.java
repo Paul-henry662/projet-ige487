@@ -10,21 +10,17 @@ public class TuplePermis {
 	private Date valideFin;
 
 	public TuplePermis() {
-		// TODO - implement TuplePermis.TuplePermis
-		throw new UnsupportedOperationException();
+
 	}
 
-	/**
-	 * 
-	 * @param permisCode
-	 * @param effectif
-	 * @param valideDebut
-	 * @param valideFin
-	 */
-	public TuplePermis(String permisCode, String effectif, String valideDebut, String valideFin) {
-		// TODO - implement TuplePermis.TuplePermis
-		throw new UnsupportedOperationException();
+
+	public TuplePermis(String permisCode, String effectif, Date valideDebut, Date valideFin) {
+		this.permisCode = permisCode;
+		this.effectif = effectif;
+		this.valideDebut = valideDebut;
+		this.valideFin = valideFin;
 	}
+
 
 	public String getPermisCode() {
 		return this.permisCode;

@@ -87,8 +87,10 @@ public class GestionEffectifs {
 	 * @throws SQLException 
 	 */
 	public void modifierEffectif(String effMatrOld, String effMatrNew, String nom, String prenom, String dateNaiss) throws meca.meca.MecaException, SQLException {
-		if(effMatrOld.length() == 0 || effMatrNew.length() == 0 || nom.length() == 0 || prenom.length() == 0 || dateNaiss.length() == 0)
+		if(effMatrOld.length() == 0 || effMatrNew.length() == 0 || nom.length() == 0 || prenom.length() == 0 || dateNaiss.length() == 0) {
+			cx.rollback();
 			throw new MecaException("Un ou plusieurs champ(s) manquant(s)");
+		}
 		
 		try {
 			Date dateNaissConv = Date.valueOf(dateNaiss);
@@ -108,6 +110,7 @@ public class GestionEffectifs {
 			cx.commit();
 			
 		}catch (IllegalArgumentException e) {
+			cx.rollback();
 			throw new MecaException("Valeur incorrecte pour la date (yyyy-mm-dd)");
 		}
 	}

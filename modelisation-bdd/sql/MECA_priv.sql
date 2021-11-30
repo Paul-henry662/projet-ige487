@@ -39,7 +39,9 @@ create table SOrg
   super_unite Unite_Code not null,
   constraint sorg_cc0 primary key (unite, super_unite),
   constraint sorg_cr0 foreign key (unite) references unite(unite_code) ON DELETE CASCADE ON UPDATE CASCADE,
-  constraint sorg_cr1 foreign key (super_unite) references unite(unite_code) ON DELETE CASCADE
+  constraint sorg_cr1 foreign key (super_unite) references unite(unite_code) ON DELETE CASCADE ON UPDATE CASCADE,
+  constraint sorg_struct check(unite <> super_unite)
+
 );
 comment on table SOrg is $$
 Une unité "unite" dépend administrativement de l’unité "super_unite".

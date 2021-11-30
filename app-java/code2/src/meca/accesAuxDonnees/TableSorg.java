@@ -46,9 +46,9 @@ public class TableSorg {
 	 * @param superUnite
 	 * @throws SQLException 
 	 */
-	public boolean existe(String unite, String superUnite) throws SQLException {
-		stmtFind.setString(1, unite);
-		stmtFind.setString(2, superUnite);
+	public boolean existe(String uniteCode, String superUniteCode) throws SQLException {
+		stmtFind.setString(1, uniteCode);
+		stmtFind.setString(2, superUniteCode);
 		
 		ResultSet result = stmtFind.executeQuery();
 		boolean existe = result.next();
@@ -71,8 +71,10 @@ public class TableSorg {
 		
 		while(result.next()) {
 			TupleSorg sorg = new TupleSorg();
-			sorg.setUnite(result.getString(1));
-			sorg.setSuperUnite(result.getString(2));
+			sorg.setUniteCode(result.getString(1));
+			sorg.setUniteNom(result.getString(2));
+			sorg.setSuperUniteCode(result.getString(3));
+			sorg.setSuperUniteCode(result.getString(4));
 			
 			sorgs.add(sorg);
 		}
@@ -95,8 +97,10 @@ public class TableSorg {
 		
 		TupleSorg sorg = new TupleSorg();
 		
-		sorg.setUnite(result.getString(1));
-		sorg.setSuperUnite(result.getString(2));
+		sorg.setUniteCode(result.getString(1));
+		sorg.setUniteNom(result.getString(2));
+		sorg.setSuperUniteCode(result.getString(3));
+		sorg.setSuperUniteCode(result.getString(4));
 
 		result.close();
 			
@@ -116,8 +120,10 @@ public class TableSorg {
 		
 		while(result.next()) {
 			TupleSorg sorg = new TupleSorg();
-			sorg.setUnite(result.getString(1));
-			sorg.setSuperUnite(result.getString(2));
+			sorg.setUniteCode(result.getString(1));
+			sorg.setUniteNom(result.getString(2));
+			sorg.setSuperUniteCode(result.getString(3));
+			sorg.setSuperUniteCode(result.getString(4));
 			
 			sorgs.add(sorg);
 		}
@@ -138,8 +144,10 @@ public class TableSorg {
 		
 		while(result.next()) {
 			TupleSorg sorg = new TupleSorg();
-			sorg.setUnite(result.getString(1));
-			sorg.setSuperUnite(result.getString(2));
+			sorg.setUniteCode(result.getString(1));
+			sorg.setUniteNom(result.getString(2));
+			sorg.setSuperUniteCode(result.getString(3));
+			sorg.setSuperUniteCode(result.getString(4));
 			
 			sorgs.add(sorg);
 		}
